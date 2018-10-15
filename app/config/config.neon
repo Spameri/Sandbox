@@ -1,0 +1,25 @@
+extensions:
+	elasticSearch: Spameri\Elastic\DI\ElasticSearchExtension
+	console: Kdyby\Console\DI\ConsoleExtension
+	monolog: Kdyby\Monolog\DI\MonologExtension
+
+
+elasticSearch:
+	debug: true
+	entities:
+
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenter\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	router: App\RouterFactory::createRouter
