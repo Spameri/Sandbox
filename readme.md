@@ -23,4 +23,4 @@ The ES will be available on [http://localhost:9200](http://localhost:9200) and K
  
  
 ## Result 
-![workshop start](https://github.com/VBoss/ElasticPosobotaWorkshop/www/images/workshop-start.png "Workshop start")
+![workshop start](https://raw.githubusercontent.com/VBoss/ElasticPosobotaWorkshop/master/www/images/workshop-start.png "Workshop start")
