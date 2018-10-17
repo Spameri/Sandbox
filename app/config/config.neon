@@ -23,3 +23,7 @@ session:
 
 services:
 	router: App\RouterFactory::createRouter
+
+includes:
+	- ../ProductModule/Config/Product.neon
+	- ../ProductModule/Config/ProductModule.neon

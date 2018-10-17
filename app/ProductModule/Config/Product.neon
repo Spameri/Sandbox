@@ -1,0 +1,44 @@
+elasticSearch:
+	entities:
+		Product:
+			index: workshop_product
+			dynamic: strict
+
+			properties:
+				name:
+					type: text
+
+				isPublic:
+					type: boolean
+
+				content:
+					type: text
+
+				details:
+					properties:
+						tags:
+							type: text
+
+						accessories: # vazba na jiné produkty, text protože je to elastické id
+							type: text
+
+				price:
+					type: integer
+
+				parameterValues:
+					properties:
+						parameterName:
+							type: text
+
+						parameterValueUid:
+							type: text
+
+						stringParameterValue:
+							type: keyword
+
+						boolParameterValue:
+							type: boolean
+
+						intParameterValue:
+							type: long
+
