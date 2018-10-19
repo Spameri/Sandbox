@@ -17,10 +17,10 @@ elasticSearch:
 				details:
 					properties:
 						tags:
-							type: text
+							type: keyword
 
 						accessories: # vazba na jiné produkty, text protože je to elastické id
-							type: text
+							type: keyword
 
 				price:
 					type: integer
@@ -28,10 +28,10 @@ elasticSearch:
 				parameterValues:
 					properties:
 						parameterName:
-							type: text
+							type: keyword
 
 						parameterValueUid:
-							type: text
+							type: keyword
 
 						stringParameterValue:
 							type: keyword
