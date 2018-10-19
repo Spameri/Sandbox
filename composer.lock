@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9c476f8915f740f1078e2622faa52e2",
+    "content-hash": "3f45bbcaaa81db1068fea29d5757eb13",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -90,7 +90,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2018-04-11 12:51:41"
+            "time": "2018-04-11T12:51:41+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -141,7 +141,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2018-07-31 13:22:33"
+            "time": "2018-07-31T13:22:33+00:00"
         },
         {
             "name": "guzzlehttp/streams",
@@ -191,7 +191,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2016-04-13 16:32:01"
+            "time": "2016-04-13T16:32:01+00:00"
         },
         {
             "name": "kdyby/console",
@@ -469,7 +469,7 @@
                 "scream",
                 "strict"
             ],
-            "time": "2018-08-15 15:02:02"
+            "time": "2018-08-15T15:02:02+00:00"
         },
         {
             "name": "latte/latte",
@@ -619,7 +619,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-06-19 07:22:34"
+            "time": "2018-06-19T07:22:34+00:00"
         },
         {
             "name": "nette/application",
@@ -1891,7 +1891,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-04-03 15:59:15"
+            "time": "2018-04-03T15:59:15+00:00"
         },
         {
             "name": "react/promise",
@@ -1937,20 +1937,20 @@
                 "promise",
                 "promises"
             ],
-            "time": "2018-06-13 15:59:06"
+            "time": "2018-06-13T15:59:06+00:00"
         },
         {
             "name": "spameri/elastic",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/Elastic.git",
-                "reference": "7d364b9d540a99d53a3ca89d1034d009d68ff718"
+                "reference": "6e890c5c523162514e40114c31e8b2dbd2e4bd88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/7d364b9d540a99d53a3ca89d1034d009d68ff718",
-                "reference": "7d364b9d540a99d53a3ca89d1034d009d68ff718",
+                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/6e890c5c523162514e40114c31e8b2dbd2e4bd88",
+                "reference": "6e890c5c523162514e40114c31e8b2dbd2e4bd88",
                 "shasum": ""
             },
             "require": {
@@ -1958,8 +1958,10 @@
                 "kdyby/console": "v2.7.1",
                 "kdyby/datetime-provider": "v1.0.0",
                 "kdyby/monolog": "v1.3.2",
+                "nette/di": "v2.4.14",
+                "nette/security": "v2.4.3",
                 "php": ">=7.1",
-                "spameri/elastic-query": "dev-master",
+                "spameri/elastic-query": "v0.1.0",
                 "tracy/tracy": "v2.5.3"
             },
             "require-dev": {
@@ -1992,24 +1994,23 @@
                 "nette",
                 "spameri"
             ],
-            "time": "2018-10-15 23:18:42"
+            "time": "2018-10-19T14:55:00+00:00"
         },
         {
             "name": "spameri/elastic-query",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/ElasticQuery.git",
-                "reference": "4573b4d8384faf03affd2858f9edf6fca329d350"
+                "reference": "24787ccb2be5fbabcc322eed5ad4fe9da5df342a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/4573b4d8384faf03affd2858f9edf6fca329d350",
-                "reference": "4573b4d8384faf03affd2858f9edf6fca329d350",
+                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/24787ccb2be5fbabcc322eed5ad4fe9da5df342a",
+                "reference": "24787ccb2be5fbabcc322eed5ad4fe9da5df342a",
                 "shasum": ""
             },
             "require": {
-                "elasticsearch/elasticsearch": "^6.0",
                 "php": ">=7.1"
             },
             "require-dev": {
@@ -2030,7 +2031,7 @@
                 }
             ],
             "description": "Objects instead of arrays for querying to ElasticSearch.",
-            "time": "2018-10-10 16:17:14"
+            "time": "2018-10-19T13:49:41+00:00"
         },
         {
             "name": "symfony/console",
@@ -2038,12 +2039,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "115ef747e8bcabcd8967d5f66e21346f30a2224b"
+                "reference": "3cb827c808ccec1c6cff4e217f36415f9428fe5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/115ef747e8bcabcd8967d5f66e21346f30a2224b",
-                "reference": "115ef747e8bcabcd8967d5f66e21346f30a2224b",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3cb827c808ccec1c6cff4e217f36415f9428fe5e",
+                "reference": "3cb827c808ccec1c6cff4e217f36415f9428fe5e",
                 "shasum": ""
             },
             "require": {
@@ -2099,7 +2100,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-10 09:28:31"
+            "time": "2018-10-14T19:00:59+00:00"
         },
         {
             "name": "symfony/debug",
@@ -2155,7 +2156,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02 16:33:53"
+            "time": "2018-10-02T16:33:53+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2214,7 +2215,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21 13:07:52"
+            "time": "2018-09-21T13:07:52+00:00"
         },
         {
             "name": "tracy/tracy",
@@ -2286,9 +2287,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "spameri/elastic": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
