@@ -21,6 +21,7 @@ class ProductService extends \Spameri\Elastic\Model\BaseService
 	/**
 	 * @param \Spameri\Elastic\Entity\Property\ElasticId $id
 	 * @return \Spameri\Elastic\Entity\IElasticEntity|\App\ProductModule\Entity\Product
+	 * @throws \Spameri\Elastic\Exception\DocumentNotFound
 	 */
 	public function get(
 		\Spameri\Elastic\Entity\Property\ElasticId $id
@@ -33,6 +34,7 @@ class ProductService extends \Spameri\Elastic\Model\BaseService
 	/**
 	 * @param \Spameri\ElasticQuery\ElasticQuery $elasticQuery
 	 * @return \Spameri\Elastic\Entity\IElasticEntity|\App\ProductModule\Entity\Product
+	 * @throws \Spameri\Elastic\Exception\DocumentNotFound
 	 */
 	public function getBy(
 		\Spameri\ElasticQuery\ElasticQuery $elasticQuery
@@ -45,6 +47,7 @@ class ProductService extends \Spameri\Elastic\Model\BaseService
 	/**
 	 * @param \Spameri\ElasticQuery\ElasticQuery $elasticQuery
 	 * @return \Spameri\Elastic\Entity\IElasticEntityCollection|\App\ProductModule\Entity\ProductCollection
+	 * @throws \Spameri\Elastic\Exception\DocumentNotFound
 	 */
 	public function getAllBy(\Spameri\ElasticQuery\ElasticQuery $elasticQuery
 	) : \Spameri\Elastic\Entity\IElasticEntityCollection

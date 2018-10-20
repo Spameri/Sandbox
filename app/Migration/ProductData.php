@@ -88,11 +88,13 @@ for ($i = 1; $i <= 100; $i++) {
 	$productService->insert(
 		new \App\ProductModule\Entity\Product(
 			new \Spameri\Elastic\Entity\Property\EmptyElasticId(),
-			new \App\ProductModule\Entity\Product\IsPublic(\array_rand($boolLottery)),
-			new \App\ProductModule\Entity\Product\Name(\array_rand($names)),
-			new \App\ProductModule\Entity\Product\Content(\array_rand($content)),
+			new \App\ProductModule\Entity\Product\IsPublic($boolLottery[\array_rand($boolLottery)]),
+			new \App\ProductModule\Entity\Product\Name($names[\array_rand($names)]),
+			new \App\ProductModule\Entity\Product\Content($content[\array_rand($content)]),
 			new \App\ProductModule\Entity\Product\Details(
-				new \App\ProductModule\Entity\Product\Details\TagCollection(\array_rand($tag)),
+				new \App\ProductModule\Entity\Product\Details\TagCollection(
+					new \App\ProductModule\Entity\Product\Details\Tag($tag[\array_rand($tag)])
+				),
 				new \App\ProductModule\Entity\Product\Details\Accessories($productService)
 			),
 			new \App\ProductModule\Entity\Product\Price(\random_int(100, 9000)),
