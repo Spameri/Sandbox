@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dcde9e4eb15a14e760fca831ba68f70a",
+    "content-hash": "e138e2d6efa2f97d07609015228e2cc8",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -1941,16 +1941,16 @@
         },
         {
             "name": "spameri/elastic",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/Elastic.git",
-                "reference": "782791e9c1e67b211cb8930b5f6cfb31993f4e81"
+                "reference": "14210ca1d784602b8e6a3932d6b1defd39c5a1aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/782791e9c1e67b211cb8930b5f6cfb31993f4e81",
-                "reference": "782791e9c1e67b211cb8930b5f6cfb31993f4e81",
+                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/14210ca1d784602b8e6a3932d6b1defd39c5a1aa",
+                "reference": "14210ca1d784602b8e6a3932d6b1defd39c5a1aa",
                 "shasum": ""
             },
             "require": {
@@ -1961,7 +1961,7 @@
                 "nette/di": "v2.4.14",
                 "nette/security": "v2.4.3",
                 "php": ">=7.1",
-                "spameri/elastic-query": "v0.1.1",
+                "spameri/elastic-query": "v0.1.2",
                 "tracy/tracy": "v2.5.3"
             },
             "require-dev": {
@@ -1994,20 +1994,20 @@
                 "nette",
                 "spameri"
             ],
-            "time": "2018-10-20T00:13:38+00:00"
+            "time": "2018-10-20T06:57:24+00:00"
         },
         {
             "name": "spameri/elastic-query",
-            "version": "v0.1.1",
+            "version": "v0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/ElasticQuery.git",
-                "reference": "012ff1bc5e7fb23a8a9d43f827f67b457f6050fd"
+                "reference": "f00b656ae730aaf75c8bd40da5e8133c879fca77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/012ff1bc5e7fb23a8a9d43f827f67b457f6050fd",
-                "reference": "012ff1bc5e7fb23a8a9d43f827f67b457f6050fd",
+                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/f00b656ae730aaf75c8bd40da5e8133c879fca77",
+                "reference": "f00b656ae730aaf75c8bd40da5e8133c879fca77",
                 "shasum": ""
             },
             "require": {
@@ -2031,7 +2031,7 @@
                 }
             ],
             "description": "Objects instead of arrays for querying to ElasticSearch.",
-            "time": "2018-10-20T00:02:40+00:00"
+            "time": "2018-10-20T06:50:01+00:00"
         },
         {
             "name": "symfony/console",
