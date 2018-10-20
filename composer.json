@@ -29,7 +29,7 @@
 		"nette/utils": "^2.4",
 		"latte/latte": "^2.4",
 		"tracy/tracy": "^2.4",
-		"spameri/elastic": "v0.1.0"
+		"spameri/elastic": "v0.1.1"
 	},
 	"minimum-stability": "dev",
 	"config": {
