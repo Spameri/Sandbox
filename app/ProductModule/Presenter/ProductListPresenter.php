@@ -10,6 +10,7 @@ class ProductListPresenter extends \App\Presenters\BasePresenter
 	 * @var \App\ProductModule\Model\ProductService
 	 */
 	private $productService;
+
 	/**
 	 * @var \Spameri\Elastic\Model\Search
 	 */
@@ -34,12 +35,46 @@ class ProductListPresenter extends \App\Presenters\BasePresenter
 				new \Spameri\ElasticQuery\ElasticQuery(
 					new \Spameri\ElasticQuery\Query\QueryCollection(
 						new \Spameri\ElasticQuery\Query\MustCollection(
-							new \Spameri\ElasticQuery\Query\Term('isPublic', TRUE)
+							new \Spameri\ElasticQuery\Query\Match(
+								'name',
+								'drzak',
+								2,
+								\Spameri\ElasticQuery\Query\Match\Operator::OR,
+								NULL,
+								new \Spameri\ElasticQuery\Query\Match\Fuzziness('10')
+							)
 						)
-					)
+					),
+					NULL,
+					NULL,
+					NULL,
+					0,
+					21
 				)
 			)
 		);
+
+		try {
+			$holder = $this->productService->getAllBy(
+				new \Spameri\ElasticQuery\ElasticQuery(
+					new \Spameri\ElasticQuery\Query\QueryCollection(
+						new \Spameri\ElasticQuery\Query\MustCollection(
+							new \Spameri\ElasticQuery\Query\Match(
+								'name',
+								'drzak',
+								2,
+								\Spameri\ElasticQuery\Query\Match\Operator::OR,
+								NULL,
+								new \Spameri\ElasticQuery\Query\Match\Fuzziness('AUTO')
+							)
+						)
+					)
+				)
+			);
+
+		} catch (\Spameri\Elastic\Exception\DocumentNotFound $exception) {
+
+		}
 
 		$this->getTemplate()->add(
 			'search',
