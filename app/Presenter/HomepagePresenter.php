@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters;
+namespace App\Presenter;
 
 
 final class HomepagePresenter extends BasePresenter
