@@ -1,4 +1,4 @@
-# ElasticPoSobotaWorkshop
+# Spameri/Elastic sandbox
 
 ## Prerequisites
 - Installed PHP >=7.1.0
@@ -26,4 +26,4 @@ The ES will be available on [http://localhost:9200](http://localhost:9200) and K
 - Fill with prepared data `php app/Migration/ProductData.php`
  
 ## Result 
-![workshop start](https://raw.githubusercontent.com/VBoss/ElasticPosobotaWorkshop/master/www/images/workshop-start.png "Workshop start")
+![workshop start](https://raw.githubusercontent.com/Spameri/Sandbox/master/www/images/workshop-start.png "Workshop start")
