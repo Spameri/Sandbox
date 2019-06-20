@@ -1,0 +1,14 @@
+services:
+	productService:
+		class: App\ProductModule\Model\ProductService(
+			%elasticSearch.entities.Product.index%,
+			%elasticSearch.entities.Product.properties%
+			@productFactory,
+			@productCollectionFactory
+		)
+
+	productFactory:
+		class: App\ProductModule\Factory\ProductFactory
+
+	productCollectionFactory:
+		class: App\ProductModule\Factory\ProductCollectionFactory

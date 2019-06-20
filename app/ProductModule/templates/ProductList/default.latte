@@ -1,38 +1,30 @@
 {block content}
 	<div id="banner">
-		<h1 n:block=title>ElasticSearch PoSobota</h1>
+		<h1 n:block=title>ElasticSearch Demo</h1>
 	</div>
 
 	<div id="content">
 		<h2>You have successfully created your Nette Framework project.</h2>
 
-		<div class="boxes">
-			<div>
-				<h2>
-					Product name
-				</h2>
-				<p>
-					Product context
-				</p>
-			</div>
+		{foreach $products as $product}
+			{first 3}
+				<div class="boxes">
+			{/first}
 
-			<div>
-				<h2>
-					Product name
-				</h2>
-				<p>
-					Product context
-				</p>
-			</div>
+					<div>
+						<h2>
+							{$product->name()->value()} - {$product->price()->value()} Kč
+						</h2>
+						<p>
+							{$product->content()->value()}
+						</p>
+					</div>
 
-			<div>
-				<h2>
-					Product name
-				</h2>
-				<p>
-					Product context
-				</p>
-			</div>
-		</div>
+			{last 3}
+				</div>
+				<hr>
+			{/last}
+
+		{/foreach}
 	</div>
 {/block}

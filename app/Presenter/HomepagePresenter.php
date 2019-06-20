@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Presenters;
+namespace App\Presenter;
 
 
-final class HomepagePresenter extends BasePresenter
+final class HomepagePresenter extends \App\Presenter\BasePresenter
 {
 	public function renderDefault()
 	{

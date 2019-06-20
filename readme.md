@@ -1,4 +1,4 @@
-# ElasticPoSobotaWorkshop
+# Spameri/Elastic sandbox
 
 ## Prerequisites
 - Installed PHP >=7.1.0
@@ -21,6 +21,9 @@ docker-compose up
 The ES will be available on [http://localhost:9200](http://localhost:9200) and Kibana on 
 [http://localhost:5601](http://localhost:5601)
  
+### Setup Index and data
+- Create empty index `php www/index.php spameri:elastic:create-index`
+- Fill with prepared data `php app/Migration/ProductData.php`
  
 ## Result 
-![workshop start](https://raw.githubusercontent.com/VBoss/ElasticPosobotaWorkshop/master/www/images/workshop-start.png "Workshop start")
+![workshop start](https://raw.githubusercontent.com/Spameri/Sandbox/master/www/images/workshop-start.png "Workshop start")
