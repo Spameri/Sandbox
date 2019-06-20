@@ -33,9 +33,4 @@ class Name implements \Spameri\Elastic\Entity\IValue
 	}
 
 
-	public function __toString() : string
-	{
-		return $this->value;
-	}
-
 }

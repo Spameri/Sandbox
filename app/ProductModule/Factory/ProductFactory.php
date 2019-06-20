@@ -20,27 +20,25 @@ class ProductFactory implements \Spameri\Elastic\Factory\IEntityFactory
 	}
 
 
-	public function create(\Spameri\Elastic\Entity\Collection\ResultCollection $collection) : \Generator
+	public function create(\Spameri\ElasticQuery\Response\Result\Hit $hit) : \Generator
 	{
 		$productService = $this->serviceLocator->locateByEntityClass(\App\ProductModule\Entity\Product::class);
 
-		foreach ($collection->rows() as $row) {
-			yield new \App\ProductModule\Entity\Product(
-				new \Spameri\Elastic\Entity\Property\ElasticId($row['id']),
-				new \App\ProductModule\Entity\Product\IsPublic($row['isPublic']),
-				new \App\ProductModule\Entity\Product\Name($row['name']),
-				new \App\ProductModule\Entity\Product\Content($row['content']),
-				new \App\ProductModule\Entity\Product\Details(
-					new \App\ProductModule\Entity\Product\Details\TagCollection( ... $this->createTags($row['details']['tags'])),
-					new \App\ProductModule\Entity\Product\Details\Accessories(
-						$productService,
-						$row['details']['accessories'] ?? NULL
-					)
-				),
-				new \App\ProductModule\Entity\Product\Price($row['price']),
-				new \App\ProductModule\Entity\Product\ParameterValuesCollection()
-			);
-		}
+		yield new \App\ProductModule\Entity\Product(
+			new \Spameri\Elastic\Entity\Property\ElasticId($hit->id()),
+			new \App\ProductModule\Entity\Product\IsPublic($hit->source()['isPublic']),
+			new \App\ProductModule\Entity\Product\Name($hit->source()['name']),
+			new \App\ProductModule\Entity\Product\Content($hit->source()['content']),
+			new \App\ProductModule\Entity\Product\Details(
+				new \App\ProductModule\Entity\Product\Details\TagCollection( ... $this->createTags($hit->source()['details']['tags'])),
+				new \App\ProductModule\Entity\Product\Details\Accessories(
+					$productService,
+					$hit->source()['details']['accessories'] ?? NULL
+				)
+			),
+			new \App\ProductModule\Entity\Product\Price($hit->source()['price']),
+			new \App\ProductModule\Entity\Product\ParameterValuesCollection()
+		);
 	}
 
 

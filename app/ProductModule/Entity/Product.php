@@ -62,13 +62,13 @@ class Product implements \Spameri\Elastic\Entity\IElasticEntity
 	}
 
 
-	public function id() : \Spameri\Elastic\Entity\Property\IElasticId
+	public function id(): \Spameri\Elastic\Entity\Property\IElasticId
 	{
 		return $this->id;
 	}
 
 
-	public function entityVariables() : array
+	public function entityVariables(): array
 	{
 		return \get_object_vars($this);
 	}

@@ -27,25 +27,25 @@ class Details implements \Spameri\Elastic\Entity\IEntity
 	}
 
 
-	public function key() : string
+	public function key(): string
 	{
 		return 'Only if this is somewhere part of collection.';
 	}
 
 
-	public function entityVariables() : array
+	public function entityVariables(): array
 	{
 		return \get_object_vars($this);
 	}
 
 
-	public function tags() : \App\ProductModule\Entity\Product\Details\TagCollection
+	public function tags(): \App\ProductModule\Entity\Product\Details\TagCollection
 	{
 		return $this->tags;
 	}
 
 
-	public function accessories() : \App\ProductModule\Entity\Product\Details\Accessories
+	public function accessories(): \App\ProductModule\Entity\Product\Details\Accessories
 	{
 		return $this->accessories;
 	}

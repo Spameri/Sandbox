@@ -21,6 +21,9 @@ docker-compose up
 The ES will be available on [http://localhost:9200](http://localhost:9200) and Kibana on 
 [http://localhost:5601](http://localhost:5601)
  
+### Setup Index and data
+- Create empty index `php www/index.php spameri:elastic:create-index`
+- Fill with prepared data `php app/Migration/ProductData.php`
  
 ## Result 
 ![workshop start](https://raw.githubusercontent.com/VBoss/ElasticPosobotaWorkshop/master/www/images/workshop-start.png "Workshop start")

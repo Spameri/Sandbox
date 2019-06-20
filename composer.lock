@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e138e2d6efa2f97d07609015228e2cc8",
+    "content-hash": "28bcf142f00ed9c8ebaa1ef54412db2c",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -37,16 +37,16 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "6.0.x-dev",
+            "version": "v6.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elastic/elasticsearch-php.git",
-                "reference": "043ad4f754412aa87d855186b0208b2b2050e7d1"
+                "reference": "7be453dd36d1b141b779f2cb956715f8e04ac2f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/043ad4f754412aa87d855186b0208b2b2050e7d1",
-                "reference": "043ad4f754412aa87d855186b0208b2b2050e7d1",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/7be453dd36d1b141b779f2cb956715f8e04ac2f4",
+                "reference": "7be453dd36d1b141b779f2cb956715f8e04ac2f4",
                 "shasum": ""
             },
             "require": {
@@ -56,12 +56,12 @@
                 "psr/log": "~1.0"
             },
             "require-dev": {
-                "cpliakas/git-wrapper": "~1.0",
+                "cpliakas/git-wrapper": "^1.7 || ^2.1",
                 "doctrine/inflector": "^1.1",
-                "mockery/mockery": "0.9.4",
-                "phpstan/phpstan-shim": "0.8.3",
-                "phpunit/phpunit": "6.3.0",
-                "squizlabs/php_codesniffer": "3.0.2",
+                "mockery/mockery": "^1.2",
+                "phpstan/phpstan-shim": "^0.9 || ^0.11",
+                "phpunit/phpunit": "^5.7 || ^6.5",
+                "squizlabs/php_codesniffer": "^3.4",
                 "symfony/finder": "^2.8",
                 "symfony/yaml": "^2.8"
             },
@@ -82,6 +82,9 @@
             "authors": [
                 {
                     "name": "Zachary Tong"
+                },
+                {
+                    "name": "Enrico Zimuel"
                 }
             ],
             "description": "PHP Client for Elasticsearch",
@@ -90,11 +93,11 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2018-04-11T12:51:41+00:00"
+            "time": "2019-05-20T14:15:55+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
-            "version": "dev-master",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
@@ -145,16 +148,16 @@
         },
         {
             "name": "guzzlehttp/streams",
-            "version": "dev-master",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/streams.git",
-                "reference": "d99a261c616210618ab94fd319cb17eda458cc3e"
+                "reference": "47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/streams/zipball/d99a261c616210618ab94fd319cb17eda458cc3e",
-                "reference": "d99a261c616210618ab94fd319cb17eda458cc3e",
+                "url": "https://api.github.com/repos/guzzle/streams/zipball/47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5",
+                "reference": "47aaa48e27dae43d39fc1cea0ccf0d84ac1a2ba5",
                 "shasum": ""
             },
             "require": {
@@ -191,7 +194,7 @@
                 "Guzzle",
                 "stream"
             ],
-            "time": "2016-04-13T16:32:01+00:00"
+            "time": "2014-10-12T19:18:40+00:00"
         },
         {
             "name": "kdyby/console",
@@ -410,30 +413,25 @@
         },
         {
             "name": "kdyby/strict-objects",
-            "version": "1.0.x-dev",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/StrictObjects.git",
-                "reference": "b84177fbed12ca10c944acada8a841a764560e25"
+                "reference": "ff6c82b54d8bea0d3f43dc5fce890ebe126e95c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/StrictObjects/zipball/b84177fbed12ca10c944acada8a841a764560e25",
-                "reference": "b84177fbed12ca10c944acada8a841a764560e25",
+                "url": "https://api.github.com/repos/Kdyby/StrictObjects/zipball/ff6c82b54d8bea0d3f43dc5fce890ebe126e95c7",
+                "reference": "ff6c82b54d8bea0d3f43dc5fce890ebe126e95c7",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": ">=5.4"
             },
             "require-dev": {
                 "nette/tester": "~1.7"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Kdyby\\StrictObjects\\": "src/"
@@ -469,7 +467,7 @@
                 "scream",
                 "strict"
             ],
-            "time": "2018-08-15T15:02:02+00:00"
+            "time": "2016-08-26T06:34:41+00:00"
         },
         {
             "name": "latte/latte",
@@ -545,16 +543,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.x-dev",
+            "version": "1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c465e1144536862e03f519cb3d65e924062cabfb"
+                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c465e1144536862e03f519cb3d65e924062cabfb",
-                "reference": "c465e1144536862e03f519cb3d65e924062cabfb",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
                 "shasum": ""
             },
             "require": {
@@ -619,7 +617,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-06-19T07:22:34+00:00"
+            "time": "2018-11-05T09:00:11+00:00"
         },
         {
             "name": "nette/application",
@@ -1848,16 +1846,16 @@
         },
         {
             "name": "psr/log",
-            "version": "dev-master",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda"
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda",
-                "reference": "3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
+                "reference": "6c001f1daafa3a3ac1d8ff69ee4db8e799a654dd",
                 "shasum": ""
             },
             "require": {
@@ -1891,20 +1889,20 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-04-03T15:59:15+00:00"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "react/promise",
-            "version": "2.x-dev",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "f4edc2581617431aea50430749db55cc3fc031b3"
+                "reference": "31ffa96f8d2ed0341a57848cbb84d88b89dd664d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/promise/zipball/f4edc2581617431aea50430749db55cc3fc031b3",
-                "reference": "f4edc2581617431aea50430749db55cc3fc031b3",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/31ffa96f8d2ed0341a57848cbb84d88b89dd664d",
+                "reference": "31ffa96f8d2ed0341a57848cbb84d88b89dd664d",
                 "shasum": ""
             },
             "require": {
@@ -1937,36 +1935,44 @@
                 "promise",
                 "promises"
             ],
-            "time": "2018-06-13T15:59:06+00:00"
+            "time": "2019-01-07T21:25:54+00:00"
         },
         {
             "name": "spameri/elastic",
-            "version": "v0.1.2",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/Elastic.git",
-                "reference": "14210ca1d784602b8e6a3932d6b1defd39c5a1aa"
+                "reference": "8f34f940ea890b17a53e150561d58e446f8a8a8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/14210ca1d784602b8e6a3932d6b1defd39c5a1aa",
-                "reference": "14210ca1d784602b8e6a3932d6b1defd39c5a1aa",
+                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/8f34f940ea890b17a53e150561d58e446f8a8a8c",
+                "reference": "8f34f940ea890b17a53e150561d58e446f8a8a8c",
                 "shasum": ""
             },
             "require": {
                 "elasticsearch/elasticsearch": "^6.0",
-                "kdyby/console": "v2.7.1",
+                "ext-json": "*",
+                "kdyby/console": "^2.7.1",
                 "kdyby/datetime-provider": "v1.0.0",
-                "kdyby/monolog": "v1.3.2",
-                "nette/di": "v2.4.14",
-                "nette/security": "v2.4.3",
+                "kdyby/monolog": "^1.3.2",
+                "nette/di": "^2.4.10",
+                "nette/security": "^2.4.3",
+                "nette/utils": "^2.5.3",
                 "php": ">=7.1",
-                "spameri/elastic-query": "v0.1.2",
-                "tracy/tracy": "v2.5.3"
+                "spameri/elastic-query": "^0.5.0",
+                "tracy/tracy": "^2.6.0"
             },
             "require-dev": {
-                "nette/tester": "2.1.0",
-                "phpstan/phpstan-shim": "0.10.3"
+                "mockery/mockery": "^1.2",
+                "nette/bootstrap": "2.4",
+                "nette/http": "^2.4.7",
+                "nette/tester": "^2.2.0",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpstan/phpstan-shim": "^0.11.5",
+                "spameri/coding-standard": "dev-master",
+                "spameri/dependency-mocker": "^1.3"
             },
             "type": "library",
             "autoload": {
@@ -1994,28 +2000,32 @@
                 "nette",
                 "spameri"
             ],
-            "time": "2018-10-20T06:57:24+00:00"
+            "time": "2019-06-20T11:33:43+00:00"
         },
         {
             "name": "spameri/elastic-query",
-            "version": "v0.1.2",
+            "version": "v0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/ElasticQuery.git",
-                "reference": "f00b656ae730aaf75c8bd40da5e8133c879fca77"
+                "reference": "b32061dd17f46275cdd971ee1acc99f4cae71ea1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/f00b656ae730aaf75c8bd40da5e8133c879fca77",
-                "reference": "f00b656ae730aaf75c8bd40da5e8133c879fca77",
+                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/b32061dd17f46275cdd971ee1acc99f4cae71ea1",
+                "reference": "b32061dd17f46275cdd971ee1acc99f4cae71ea1",
                 "shasum": ""
             },
             "require": {
+                "ext-json": "*",
                 "php": ">=7.1"
             },
             "require-dev": {
+                "elasticsearch/elasticsearch": "^6.1",
+                "guzzlehttp/guzzle": "^6.3",
                 "nette/tester": "v2.1.0",
-                "phpstan/phpstan-shim": "v0.10.3"
+                "phpstan/phpstan-shim": "v0.11.4",
+                "spameri/coding-standard": "@dev"
             },
             "type": "library",
             "autoload": {
@@ -2031,20 +2041,20 @@
                 }
             ],
             "description": "Objects instead of arrays for querying to ElasticSearch.",
-            "time": "2018-10-20T06:50:01+00:00"
+            "time": "2019-06-20T11:30:16+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "3.4.x-dev",
+            "version": "v3.4.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "3cb827c808ccec1c6cff4e217f36415f9428fe5e"
+                "reference": "8e1d1e406dd31727fa70cd5a99cda202e9d6a5c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/3cb827c808ccec1c6cff4e217f36415f9428fe5e",
-                "reference": "3cb827c808ccec1c6cff4e217f36415f9428fe5e",
+                "url": "https://api.github.com/repos/symfony/console/zipball/8e1d1e406dd31727fa70cd5a99cda202e9d6a5c6",
+                "reference": "8e1d1e406dd31727fa70cd5a99cda202e9d6a5c6",
                 "shasum": ""
             },
             "require": {
@@ -2056,6 +2066,9 @@
                 "symfony/dependency-injection": "<3.4",
                 "symfony/process": "<3.3"
             },
+            "provide": {
+                "psr/log-implementation": "1.0"
+            },
             "require-dev": {
                 "psr/log": "~1.0",
                 "symfony/config": "~3.3|~4.0",
@@ -2065,7 +2078,7 @@
                 "symfony/process": "~3.3|~4.0"
             },
             "suggest": {
-                "psr/log-implementation": "For using the console logger",
+                "psr/log": "For using the console logger",
                 "symfony/event-dispatcher": "",
                 "symfony/lock": "",
                 "symfony/process": ""
@@ -2100,20 +2113,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-14T19:00:59+00:00"
+            "time": "2019-05-09T08:42:51+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "3.4.x-dev",
+            "version": "v3.4.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "0a612e9dfbd2ccce03eb174365f31ecdca930ff6"
+                "reference": "671fc55bd14800668b1d0a3708c3714940e30a8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/0a612e9dfbd2ccce03eb174365f31ecdca930ff6",
-                "reference": "0a612e9dfbd2ccce03eb174365f31ecdca930ff6",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/671fc55bd14800668b1d0a3708c3714940e30a8c",
+                "reference": "671fc55bd14800668b1d0a3708c3714940e30a8c",
                 "shasum": ""
             },
             "require": {
@@ -2156,20 +2169,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T16:33:53+00:00"
+            "time": "2019-05-18T13:32:47+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "dev-master",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494"
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/c79c051f5b3a46be09205c73b80b346e4153e494",
-                "reference": "c79c051f5b3a46be09205c73b80b346e4153e494",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fe5e94c604826c35a32fa832f35bd036b6799609",
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609",
                 "shasum": ""
             },
             "require": {
@@ -2181,7 +2194,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.9-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
@@ -2215,31 +2228,32 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21T13:07:52+00:00"
+            "time": "2019-02-06T07:57:58+00:00"
         },
         {
             "name": "tracy/tracy",
-            "version": "v2.5.3",
+            "version": "v2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tracy.git",
-                "reference": "7f670b08a7f4ed0243373f9d003d139196273861"
+                "reference": "7613eeff265b49a865add75360d1962449e3c12f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/7f670b08a7f4ed0243373f9d003d139196273861",
-                "reference": "7f670b08a7f4ed0243373f9d003d139196273861",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/7613eeff265b49a865add75360d1962449e3c12f",
+                "reference": "7613eeff265b49a865add75360d1962449e3c12f",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-session": "*",
-                "php": ">=5.4.4"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "nette/di": "~2.3",
-                "nette/tester": "~1.7",
-                "nette/utils": "~2.3"
+                "nette/di": "^2.4 || ~3.0.0",
+                "nette/tester": "^2.2",
+                "nette/utils": "^2.4 || ^3.0",
+                "psr/log": "^1.0"
             },
             "suggest": {
                 "https://nette.org/donate": "Please support Tracy via a donation"
@@ -2247,7 +2261,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -2255,7 +2269,7 @@
                     "src"
                 ],
                 "files": [
-                    "src/shortcuts.php"
+                    "src/Tracy/shortcuts.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2281,12 +2295,12 @@
                 "nette",
                 "profiler"
             ],
-            "time": "2018-09-24T22:35:07+00:00"
+            "time": "2019-06-18T12:20:11+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,

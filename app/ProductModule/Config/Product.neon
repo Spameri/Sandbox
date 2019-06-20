@@ -1,7 +1,7 @@
 elasticSearch:
 	entities:
 		Product:
-			index: workshop_product
+			index: spameri_product
 			dynamic: strict
 
 			properties:
