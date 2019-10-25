@@ -9,6 +9,7 @@ dibi:
 	username: benu2015
 	password: vE0hat7mEen7vak2Joag
 	database: pdp5_benu2015_staging
+	debug: false
 
 
 spameriElasticSearch:

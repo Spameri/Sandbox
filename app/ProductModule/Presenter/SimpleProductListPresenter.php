@@ -22,49 +22,7 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 
 	public function renderDefault($queryString): void
 	{
-		$query = new \Spameri\ElasticQuery\ElasticQuery();
-		$subQuery = new \Spameri\ElasticQuery\Query\QueryCollection();
-		$subQuery->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\Match(
-				'name',
-				$queryString,
-				10,
-				\Spameri\ElasticQuery\Query\Match\Operator::OR,
-				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
-			)
-		);
-		$subQuery->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\WildCard(
-				'name',
-				$queryString . '*',
-				2
-			)
-		);
-		$subQuery->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\MatchPhrase(
-				'name',
-				$queryString,
-				2
-			)
-		);
-		$subQuery->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\Match(
-				'content',
-				$queryString,
-				1,
-				\Spameri\ElasticQuery\Query\Match\Operator::OR,
-				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
-			)
-		);
-
-		$query->addMustQuery($subQuery);
-		$query->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\Match(
-				'availability',
-				'Skladem'
-			)
-		);
-		$query->options()->changeSize(20);
+		$query = $this->buildQuery($queryString);
 
 		try {
 			$products = $this->productService->getAllBy($query);
@@ -103,6 +61,57 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 		};
 
 		return $form;
+	}
+
+
+	public function buildQuery(string $queryString): \Spameri\ElasticQuery\ElasticQuery
+	{
+		$query = new \Spameri\ElasticQuery\ElasticQuery();
+		$subQuery = new \Spameri\ElasticQuery\Query\QueryCollection();
+		$subQuery->addShouldQuery(
+			new \Spameri\ElasticQuery\Query\Match(
+				'name',
+				$queryString,
+				3,
+				\Spameri\ElasticQuery\Query\Match\Operator:: OR,
+				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
+			)
+		);
+		$subQuery->addShouldQuery(
+			new \Spameri\ElasticQuery\Query\WildCard(
+				'name',
+				$queryString . '*',
+				2
+			)
+		);
+		$subQuery->addShouldQuery(
+			new \Spameri\ElasticQuery\Query\MatchPhrase(
+				'name',
+				$queryString,
+				2
+			)
+		);
+		$subQuery->addShouldQuery(
+			new \Spameri\ElasticQuery\Query\Match(
+				'content',
+				$queryString,
+				1,
+				\Spameri\ElasticQuery\Query\Match\Operator:: OR,
+				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
+			)
+		);
+
+		$query->addMustQuery($subQuery);
+		$query->addShouldQuery(
+			new \Spameri\ElasticQuery\Query\Match(
+				'availability',
+				'Skladem',
+				10
+			)
+		);
+		$query->options()->changeSize(20);
+
+		return $query;
 	}
 
 }
