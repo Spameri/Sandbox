@@ -1,0 +1,8 @@
+spameriElasticSearch:
+	entities:
+		SimpleProduct:
+			index: spameri_simple_product
+			dynamic: strict
+			config: @simpleProductConfig
+
+			properties:

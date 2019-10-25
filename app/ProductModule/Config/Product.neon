@@ -1,4 +1,4 @@
-elasticSearch:
+spameriElasticSearch:
 	entities:
 		Product:
 			index: spameri_product

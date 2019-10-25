@@ -3,7 +3,7 @@
  * @param array    $flashes  flash messages
  *}
 <!DOCTYPE html>
-<html>
+<html class="js js no-touch backgroundsize csstransforms csstransforms3d csstransitions">
 <head>
 	<meta charset="utf-8">
 
@@ -12,10 +12,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="{$basePath}/css/bootstrap.css">
 	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="stylesheet" href="//benu.cz/styles/styles.css?v=0bb7aba">
 	{block head}{/block}
 </head>
 
-<body>
+<body style="margin: 38px auto">
 	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
 	{include content}

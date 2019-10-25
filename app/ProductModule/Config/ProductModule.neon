@@ -1,8 +1,7 @@
 services:
 	productService:
 		class: App\ProductModule\Model\ProductService(
-			%elasticSearch.entities.Product.index%,
-			%elasticSearch.entities.Product.properties%
+			%spameriElasticSearch.entities.Product.index%,
 			@productFactory,
 			@productCollectionFactory
 		)
@@ -12,3 +11,40 @@ services:
 
 	productCollectionFactory:
 		class: App\ProductModule\Factory\ProductCollectionFactory
+
+#### SimpleProduct
+
+	simpleProductService:
+		class: App\ProductModule\Model\SimpleProductService(
+			%spameriElasticSearch.entities.SimpleProduct.index%,
+			@simpleProductFactory,
+			@simpleProductCollectionFactory
+		)
+
+	simpleProductFactory:
+		class: App\ProductModule\Factory\SimpleProductFactory
+
+	simpleProductCollectionFactory:
+		class: App\ProductModule\Factory\SimpleProductCollectionFactory
+
+	exportToElasticCommand:
+		class: App\ProductModule\Command\ExportToElastic(%spameriElasticSearch.entities.SimpleProduct.index%)
+		tags:
+			- kdyby.console.command
+			- console.command
+
+	simpleProductConfig:
+		class: App\ProductModule\Entity\SimpleProductConfig(%spameriElasticSearch.entities.SimpleProduct.index%)
+
+	exportToElastic:
+		class: App\ProductModule\Model\ExportToElastic
+
+	simpleProductDataProvider:
+		class: App\ProductModule\Model\ExportToElastic\DataProvider
+
+	simpleProductDataImport:
+		class: App\ProductModule\Model\ExportToElastic\DataImport
+
+	simpleProductPrepareImportData:
+		class: App\ProductModule\Model\ExportToElastic\PrepareImportData
+

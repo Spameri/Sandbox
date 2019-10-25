@@ -1,10 +1,17 @@
 extensions:
-	elasticSearch: Spameri\Elastic\DI\ElasticSearchExtension
+	spameriElasticSearch: Spameri\Elastic\DI\SpameriElasticSearchExtension
 	console: Kdyby\Console\DI\ConsoleExtension
 	monolog: Kdyby\Monolog\DI\MonologExtension
+	dibi: Dibi\Bridges\Nette\DibiExtension22
+
+dibi:
+	host: 192.168.0.5
+	username: benu2015
+	password: vE0hat7mEen7vak2Joag
+	database: pdp5_benu2015_staging
 
 
-elasticSearch:
+spameriElasticSearch:
 	debug: true
 	entities:
 
@@ -26,4 +33,5 @@ services:
 
 includes:
 	- ../ProductModule/Config/Product.neon
+	- ../ProductModule/Config/SimpleProduct.neon
 	- ../ProductModule/Config/ProductModule.neon
