@@ -16,11 +16,6 @@ class ExportToElastic extends \Symfony\Component\Console\Command\Command
 	private $delete;
 
 	/**
-	 * @var string
-	 */
-	private $indexName;
-
-	/**
 	 * @var \App\ProductModule\Entity\SimpleProductConfig
 	 */
 	private $simpleProductConfig;
@@ -32,7 +27,6 @@ class ExportToElastic extends \Symfony\Component\Console\Command\Command
 
 
 	public function __construct(
-		string $indexName
 		, \App\ProductModule\Model\ExportToElastic $exportToElastic
 		, \Spameri\Elastic\Model\Indices\Delete $delete
 		, \Spameri\Elastic\Model\Indices\Create $create
@@ -43,7 +37,6 @@ class ExportToElastic extends \Symfony\Component\Console\Command\Command
 		$this->exportToElastic = $exportToElastic;
 		$this->delete = $delete;
 		$this->create = $create;
-		$this->indexName = $indexName;
 		$this->simpleProductConfig = $simpleProductConfig;
 	}
 
@@ -63,11 +56,14 @@ class ExportToElastic extends \Symfony\Component\Console\Command\Command
 
 		// Clear index
 		try {
-			$this->delete->execute($this->indexName);
+			$this->delete->execute($this->simpleProductConfig->provide()->indexName());
 		} catch (\Spameri\Elastic\Exception\ElasticSearchException $exception) {}
 
 		// Create index
-		$this->create->execute($this->indexName, $this->simpleProductConfig->provide()->toArray());
+		$this->create->execute(
+			$this->simpleProductConfig->provide()->indexName(),
+			$this->simpleProductConfig->provide()->toArray()
+		);
 
 		// Export
 		$this->exportToElastic->execute($options);
