@@ -27,7 +27,7 @@ class ExportToElastic extends \Symfony\Component\Console\Command\Command
 
 
 	public function __construct(
-		, \App\ProductModule\Model\ExportToElastic $exportToElastic
+		\App\ProductModule\Model\ExportToElastic $exportToElastic
 		, \Spameri\Elastic\Model\Indices\Delete $delete
 		, \Spameri\Elastic\Model\Indices\Create $create
 		, \App\ProductModule\Entity\SimpleProductConfig $simpleProductConfig
