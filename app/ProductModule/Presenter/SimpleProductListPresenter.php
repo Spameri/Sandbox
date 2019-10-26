@@ -46,7 +46,8 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 	{
 		$form = new \Nette\Application\UI\Form();
 		$form->addText('queryString', 'query')
-			->setAttribute('class', 'inp-text suggest');
+			->setAttribute('class', 'inp-text suggest')
+		;
 
 		$form->addSubmit('search', 'Search');
 
@@ -64,7 +65,7 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 	}
 
 
-	public function buildQuery(string $queryString): \Spameri\ElasticQuery\ElasticQuery
+	public function buildQuery(?string $queryString): \Spameri\ElasticQuery\ElasticQuery
 	{
 		$query = new \Spameri\ElasticQuery\ElasticQuery();
 		$subQuery = new \Spameri\ElasticQuery\Query\QueryCollection();
@@ -73,7 +74,7 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 				'name',
 				$queryString,
 				3,
-				\Spameri\ElasticQuery\Query\Match\Operator:: OR,
+				\Spameri\ElasticQuery\Query\Match\Operator::OR,
 				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
 			)
 		);
@@ -81,14 +82,14 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 			new \Spameri\ElasticQuery\Query\WildCard(
 				'name',
 				$queryString . '*',
-				2
+				1
 			)
 		);
 		$subQuery->addShouldQuery(
 			new \Spameri\ElasticQuery\Query\MatchPhrase(
 				'name',
 				$queryString,
-				2
+				1
 			)
 		);
 		$subQuery->addShouldQuery(

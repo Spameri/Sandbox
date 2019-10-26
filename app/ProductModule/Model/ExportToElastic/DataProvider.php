@@ -40,13 +40,18 @@ class DataProvider implements \Spameri\Elastic\Import\DataProviderInterface
 			->and('product_item_price.level_id = 1')
 		;
 
+		$limit = 100;
+		$offset = 0;
 		while ($hasResults) {
-			$items = $query->fetchAll();
+			$items = $query->fetchAll($offset, $limit);
 
 			yield from $items;
 
 			if ( ! \count($items)) {
 				$hasResults = FALSE;
+
+			} else {
+				$offset += $limit;
 			}
 		}
 	}

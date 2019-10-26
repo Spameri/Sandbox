@@ -25,7 +25,7 @@
 								<span class="img">
 									<img class="lazy lazy-loaded" src="{$product->getImage()}" width="180" height="156" alt="{$product->getName()}">
 								</span>
-								<span class="name" style="height: 48px;">{$product->getName()}</span>
+								<span class="name" style="height: 48px;">{$product->getName()|truncate:40}</span>
 							</h2>
 
 							<ul n:if="$product->getTags()" class="reset tags">

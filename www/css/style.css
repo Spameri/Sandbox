@@ -74,8 +74,6 @@ a:hover, a:active, a:focus { text-decoration: none; color: white; }
 
 #content > h2 { font-size: 130%; color: #666; clear: both; padding: 1.2em 0; margin: 0; }
 
-h2 span { color: #87A7D5; }
-
 h2 a { text-decoration: none; background: transparent; }
 
 .boxes { -webkit-justify-content: space-between; justify-content: space-between; display: -webkit-flex; display: flex; margin-right: -2em; }
