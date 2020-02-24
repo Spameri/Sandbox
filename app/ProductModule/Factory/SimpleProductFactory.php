@@ -18,7 +18,10 @@ class SimpleProductFactory implements \Spameri\Elastic\Factory\IEntityFactory
 			$hit->getValue('price'),
 			$hit->getValue('availability'),
 			$hit->getValue('tags'),
-			$hit->getValue('categories')
+			$hit->getValue('categories'),
+			$hit->getValue('purpose'),
+			$hit->getValue('venality'),
+			$hit->getValue('brand')
 		);
 	}
 

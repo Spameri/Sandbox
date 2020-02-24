@@ -28,7 +28,7 @@ services:
 		class: App\ProductModule\Factory\SimpleProductCollectionFactory
 
 	exportToElasticCommand:
-		class: App\ProductModule\Command\ExportToElastic(%spameriElasticSearch.entities.SimpleProduct.index%)
+		class: App\ProductModule\Command\ExportToElastic
 		tags:
 			- kdyby.console.command
 			- console.command

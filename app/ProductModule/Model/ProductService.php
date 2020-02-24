@@ -46,7 +46,7 @@ class ProductService extends \Spameri\Elastic\Model\BaseService
 
 	/**
 	 * @param \Spameri\ElasticQuery\ElasticQuery $elasticQuery
-	 * @return \Spameri\Elastic\Entity\IElasticEntityCollection|\App\ProductModule\Entity\ProductCollection
+	 * @return \App\ProductModule\Entity\ProductCollection
 	 * @throws \Spameri\Elastic\Exception\DocumentNotFound
 	 */
 	public function getAllBy(\Spameri\ElasticQuery\ElasticQuery $elasticQuery

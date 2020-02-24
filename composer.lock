@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "521a289a10b8a51b1260d94498ef9be2",
+    "content-hash": "f5a5cf6800f71c8bb3469bac3d295a16",
     "packages": [
         {
             "name": "dibi/dibi",
@@ -72,33 +72,33 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v6.7.2",
+            "version": "v7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elastic/elasticsearch-php.git",
-                "reference": "9ba89f905ebf699e72dacffa410331c7fecc8255"
+                "reference": "81fbecb1046b801729fc10e2c494fffd683b0518"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/9ba89f905ebf699e72dacffa410331c7fecc8255",
-                "reference": "9ba89f905ebf699e72dacffa410331c7fecc8255",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/81fbecb1046b801729fc10e2c494fffd683b0518",
+                "reference": "81fbecb1046b801729fc10e2c494fffd683b0518",
                 "shasum": ""
             },
             "require": {
                 "ext-json": ">=1.3.7",
                 "guzzlehttp/ringphp": "~1.0",
-                "php": "^7.0",
+                "php": "^7.1",
                 "psr/log": "~1.0"
             },
             "require-dev": {
-                "cpliakas/git-wrapper": "^1.7 || ^2.1",
-                "doctrine/inflector": "^1.1",
+                "cpliakas/git-wrapper": "~2.0",
+                "doctrine/inflector": "^1.3",
                 "mockery/mockery": "^1.2",
-                "phpstan/phpstan-shim": "^0.9 || ^0.11",
-                "phpunit/phpunit": "^5.7 || ^6.5",
+                "phpstan/phpstan-shim": "^0.11",
+                "phpunit/phpunit": "^7.5",
                 "squizlabs/php_codesniffer": "^3.4",
-                "symfony/finder": "^2.8",
-                "symfony/yaml": "^2.8"
+                "symfony/finder": "~4.0",
+                "symfony/yaml": "~4.0"
             },
             "suggest": {
                 "ext-curl": "*",
@@ -106,6 +106,9 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "src/autoload.php"
+                ],
                 "psr-4": {
                     "Elasticsearch\\": "src/Elasticsearch/"
                 }
@@ -128,7 +131,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2019-07-19T14:48:24+00:00"
+            "time": "2019-12-19T15:48:35+00:00"
         },
         {
             "name": "guzzlehttp/ringphp",
@@ -179,6 +182,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "abandoned": true,
             "time": "2018-07-31T13:22:33+00:00"
         },
         {
@@ -229,6 +233,7 @@
                 "Guzzle",
                 "stream"
             ],
+            "abandoned": true,
             "time": "2014-10-12T19:18:40+00:00"
         },
         {
@@ -808,7 +813,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🅱 Nette Bootstrap: the simple way to configure and bootstrap your Nette application.",
+            "description": "? Nette Bootstrap: the simple way to configure and bootstrap your Nette application.",
             "homepage": "https://nette.org",
             "keywords": [
                 "bootstrapping",
@@ -1400,6 +1405,7 @@
                 "nette",
                 "reflection"
             ],
+            "abandoned": true,
             "time": "2017-07-11T19:28:57+00:00"
         },
         {
@@ -1651,7 +1657,7 @@
                     "homepage": "https://nette.org/contributors"
                 }
             ],
-            "description": "🛠 Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
+            "description": "? Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
             "homepage": "https://nette.org",
             "keywords": [
                 "array",
@@ -1766,30 +1772,30 @@
         },
         {
             "name": "spameri/elastic",
-            "version": "dev-data-to-elastic",
+            "version": "dev-es-7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/Elastic.git",
-                "reference": "09adbde2ff19b939ffefea6573e7749872966676"
+                "reference": "79768ef120332781515180d9dd6d1d57a51d131f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/09adbde2ff19b939ffefea6573e7749872966676",
-                "reference": "09adbde2ff19b939ffefea6573e7749872966676",
+                "url": "https://api.github.com/repos/Spameri/Elastic/zipball/79768ef120332781515180d9dd6d1d57a51d131f",
+                "reference": "79768ef120332781515180d9dd6d1d57a51d131f",
                 "shasum": ""
             },
             "require": {
-                "elasticsearch/elasticsearch": "^6.0",
+                "elasticsearch/elasticsearch": "^7.0",
                 "ext-json": "*",
                 "kdyby/console": "^2.7.1",
                 "kdyby/datetime-provider": "v1.0.0",
                 "kdyby/monolog": "^1.3.2",
                 "nette/di": "^2.4.10",
-                "nette/security": "^2.4.3",
-                "nette/utils": "^2.5.3",
+                "nette/security": "^2.3.0",
+                "nette/utils": "^2.4.10",
                 "php": ">=7.1",
-                "spameri/elastic-query": "^0.5.0",
-                "tracy/tracy": "^2.6.0"
+                "spameri/elastic-query": "^0.6.0",
+                "tracy/tracy": "^2.4.18"
             },
             "require-dev": {
                 "mockery/mockery": "^1.2",
@@ -1827,20 +1833,20 @@
                 "nette",
                 "spameri"
             ],
-            "time": "2019-10-23T21:51:12+00:00"
+            "time": "2020-02-23T22:45:46+00:00"
         },
         {
             "name": "spameri/elastic-query",
-            "version": "dev-mapping",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/ElasticQuery.git",
-                "reference": "b6329c67294ef134a058bd4ea65d3d812e40000f"
+                "reference": "be78202bc18aabca78dc91bfc595a00b1a8d11d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/b6329c67294ef134a058bd4ea65d3d812e40000f",
-                "reference": "b6329c67294ef134a058bd4ea65d3d812e40000f",
+                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/be78202bc18aabca78dc91bfc595a00b1a8d11d3",
+                "reference": "be78202bc18aabca78dc91bfc595a00b1a8d11d3",
                 "shasum": ""
             },
             "require": {
@@ -1848,9 +1854,9 @@
                 "php": ">=7.1"
             },
             "require-dev": {
-                "elasticsearch/elasticsearch": "^6.1",
+                "elasticsearch/elasticsearch": "^7",
                 "guzzlehttp/guzzle": "^6.3",
-                "nette/tester": "v2.1.0",
+                "nette/tester": "v2.3.1",
                 "phpstan/phpstan-shim": "v0.11.4",
                 "spameri/coding-standard": "@dev"
             },
@@ -1868,7 +1874,7 @@
                 }
             ],
             "description": "Objects instead of arrays for querying to ElasticSearch.",
-            "time": "2019-10-23T21:52:33+00:00"
+            "time": "2020-02-23T22:57:28+00:00"
         },
         {
             "name": "symfony/console",
@@ -2128,9 +2134,9 @@
     "packages-dev": [],
     "aliases": [
         {
-            "alias": "0.5.1",
-            "alias_normalized": "0.5.1.0",
-            "version": "dev-mapping",
+            "alias": "0.6.0",
+            "alias_normalized": "0.6.0.0",
+            "version": "9999999-dev",
             "package": "spameri/elastic-query"
         }
     ],

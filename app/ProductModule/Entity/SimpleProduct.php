@@ -51,9 +51,24 @@ class SimpleProduct extends \Spameri\Elastic\Entity\AbstractImport implements \S
 	private $tags;
 
 	/**
+	 * @var int
+	 */
+	private $venality;
+
+	/**
 	 * @var array<string>
 	 */
 	private $categories;
+
+	/**
+	 * @var array<string>
+	 */
+	private $purpose;
+
+	/**
+	 * @var string
+	 */
+	private $brand;
 
 
 	public function __construct(
@@ -66,7 +81,10 @@ class SimpleProduct extends \Spameri\Elastic\Entity\AbstractImport implements \S
 		float $price,
 		string $availability,
 		array $tags,
-		array $categories
+		array $categories,
+		array $purpose,
+		int $venality,
+		string $brand
 	)
 	{
 		$this->id = $id;
@@ -78,7 +96,10 @@ class SimpleProduct extends \Spameri\Elastic\Entity\AbstractImport implements \S
 		$this->price = $price;
 		$this->availability = $availability;
 		$this->tags = $tags;
+		$this->venality = $venality;
 		$this->categories = $categories;
+		$this->purpose = $purpose;
+		$this->brand = $brand;
 	}
 
 
@@ -148,9 +169,27 @@ class SimpleProduct extends \Spameri\Elastic\Entity\AbstractImport implements \S
 	}
 
 
+	public function getVenality(): int
+	{
+		return $this->venality;
+	}
+
+
 	public function getCategories(): array
 	{
 		return $this->categories;
+	}
+
+
+	public function getPurpose(): array
+	{
+		return $this->purpose;
+	}
+
+
+	public function getBrand(): string
+	{
+		return $this->brand;
 	}
 
 }

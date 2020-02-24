@@ -1,17 +1,13 @@
 {
-	"name": "nette/sandbox",
-	"description": "The sandbox is a pre-packaged Nette Framework project, basic configured structure for your application.",
-	"homepage": "https://nette.org",
+	"name": "spameri/sandbox",
+	"description": "The sandbox is a pre-packaged Nette Framework project, basic configured structure for your application. With example of Elasticsearch smart search and aggregations",
+	"homepage": "https://github.com/spameri",
 	"type": "project",
 	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"authors": [
 		{
-			"name": "David Grudl",
-			"homepage": "https://davidgrudl.com"
-		},
-		{
-			"name": "Nette Community",
-			"homepage": "https://nette.org/contributors"
+			"name": "Václav Čevela",
+			"homepage": "https://blog.spameri.cz"
 		}
 	],
 	"require": {
@@ -29,13 +25,19 @@
 		"nette/utils": "^2.4",
 		"latte/latte": "^2.4",
 		"tracy/tracy": "^2.5",
-		"spameri/elastic": "dev-data-to-elastic",
-	  	"spameri/elastic-query": "dev-mapping as 0.5.1",
+		"spameri/elastic": "dev-es-7",
+	  	"spameri/elastic-query": "dev-master as 0.6.0",
 		"dibi/dibi": "^4.1"
 	},
 	"config": {
 		"platform": {
 			"php": "7.1"
 		}
+	},
+  	"autoload": {
+	  "classmap": [
+		"app/",
+		"tests/"
+	  ]
 	}
 }

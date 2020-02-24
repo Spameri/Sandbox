@@ -6,22 +6,15 @@ class PrepareImportData implements \Spameri\Elastic\Import\PrepareImportDataInte
 {
 
 	/**
-	 * @var \Dibi\Connection
-	 */
-	private $connection;
-
-	/**
 	 * @var \App\ProductModule\Model\SimpleProductService
 	 */
 	private $simpleProductService;
 
 
 	public function __construct(
-		\Dibi\Connection $connection,
 		\App\ProductModule\Model\SimpleProductService $simpleProductService
 	)
 	{
-		$this->connection = $connection;
 		$this->simpleProductService = $simpleProductService;
 	}
 
@@ -60,26 +53,25 @@ class PrepareImportData implements \Spameri\Elastic\Import\PrepareImportDataInte
 			$tags[] = 'Akční cena';
 		}
 
-		$categories = $this->connection->select('product_parameter_value_text.value')
-			->from('product_parameter_value_text')
-			->join('product_x_parameter_value')
-				->on('product_parameter_value_text.parameter_value_id = product_x_parameter_value.parameter_value_id')
-			->where('product_x_parameter_value.product_id = %i', $entityData['id'])
-			->where('product_x_parameter_value.parameter_id = %i', 13)
-			->fetchPairs(NULL, 'value')
-		;
+		$purpose[] = \array_rand(\array_flip(Purposes::VALUES));
+		$brand = \array_rand(\array_flip(Brands::VALUES));
+		$categories[] = \array_rand(\array_flip(Categories::VALUES));
+		$categories[] = \array_rand(\array_flip(Categories::VALUES));
 
 		return new \App\ProductModule\Entity\SimpleProduct(
 			$elasticId,
-			$entityData['id'],
+			(int) $entityData['id'],
 			$entityData['name'],
 			$entityData['content_description'],
 			$entityData['alias'],
 			$imageSrc,
-			$entityData['amount'],
-			$entityData['availability_id'] === 1 ? 'Skladem' : 'Nedostupné',
+			(float) $entityData['amount'],
+			$entityData['availability_id'] === '1' ? 'Skladem' : 'Nedostupné',
 			$tags,
-			$categories
+			$categories,
+			$purpose,
+			0,
+			$brand
 		);
 	}
 

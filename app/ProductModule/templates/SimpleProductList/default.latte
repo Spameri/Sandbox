@@ -34,9 +34,9 @@
 								{/foreach}
 							</ul>
 
-							<ul n:if="$product->getCategories()" class="purpose">
-								{foreach $product->getCategories() as $category}
-									<li>{$category}</li>
+							<ul n:if="$product->getPurpose()" class="purpose">
+								{foreach $product->getPurpose() as $purpose}
+									<li>{$purpose}</li>
 								{/foreach}
 							</ul>
 						</a>

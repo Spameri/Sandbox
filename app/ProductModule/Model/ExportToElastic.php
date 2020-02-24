@@ -10,7 +10,7 @@ class ExportToElastic extends \Spameri\Elastic\Import\Run
 		\Symfony\Component\Console\Output\ConsoleOutput $output,
 		\Spameri\Elastic\Import\Run\NullLoggerHandler $loggerHandler,
 		\Spameri\Elastic\Import\Lock\NullLock $lock,
-		\Spameri\Elastic\Import\RunHandler\NullHandler $runHandler,
+		\Spameri\Elastic\Import\RunHandler\ConsoleHandler $runHandler,
 
 		\App\ProductModule\Model\ExportToElastic\DataProvider $dataProvider,
 		\App\ProductModule\Model\ExportToElastic\PrepareImportData $prepareImportData,
