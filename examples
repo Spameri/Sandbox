@@ -1,0 +1,214 @@
+POST products/_doc
+{
+  "name": "EXCIPIAL U HYDROLOTIO 20MG/ML kožní podání EML 200ML",
+  "isPublic": true,
+  "databaseId": 108739,
+  "content": "Excipial U Hydrolotio chrání a ošetřuje pokožku. Pomocí hydratace a tvorby přirozeného ochranného filmu z lipidů zlepšuje a normalizuje stav pokožky, vyhlazuje její drsný povrch a napomáhá jí udržovat si svou elasticitu a odolnost proti vnějším vlivům. Přípravek je možné použít při péči o pokožku při doléčování kožních onemocnění.",
+  "purpose": [
+      "Koronavir"
+    ],
+  "availability": "skladem",
+  "variants": [
+    {
+      "price": 1200,
+      "barva": "žlutá"
+    },
+    {
+      "price": 1000,
+      "barva": "černá"
+    }
+  ]
+}
+
+PUT products
+
+GET _settings
+
+GET products/_mapping
+
+GET products/_search
+
+PUT products
+
+GET products/_doc/85HFhXABUPlgcLiFiKQ4
+
+GET products_14569873558/_doc/123
+
+GET products_production/_doc/123
+
+POST /_aliases
+{
+    "actions" : [
+        {
+          "add" : {
+            "index" : "products",
+            "alias" : "products_staging"
+          }
+        }
+    ]
+}
+
+POST /_aliases
+{
+    "actions" : [
+        {
+          "remove": {
+            "index": "products",
+            "alias" : "products_production"
+          }
+        }
+    ]
+}
+
+GET products/_alias
+
+
+GET _settings
+
+DELETE products
+
+
+GET products/_analyze
+{
+  "text": ["PlayStation 5 je super, protože má AMD procesor."]
+  , "analyzer": "my_custom_analyzer"
+}
+
+PUT products
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}
+
+PUT products/_mapping
+{
+  "properties": {
+    "name": {
+      "type": "text",
+      "analyzer": "my_custom_analyzer"
+    }
+  }
+}
+
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "purpose": {
+                    "query": "koronavirus",
+                    "boost": 5,
+                    "fuzziness": "auto"
+                  }
+                }
+              },
+              {
+                "match": {
+                  "name": {
+                    "query": "koronavirus",
+                    "boost": 10,
+                    "fuzziness": "auto"
+                  }
+                }
+              },
+              {
+                "match": {
+                  "content": {
+                    "query": "koronavirus",
+                    "boost": 1,
+                    "fuzziness": "auto"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "term": {
+            "isPublic": {
+              "value": true
+            }
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "term": {
+            "purpose": {
+              "value": "kašlík"
+            }
+          }
+        }
+      ]
+    }
+  }
+  , "size": 20
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "price": {
+              "gte": 500,
+              "lte": 1500
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "variants.price": {
+              "value": 1200
+            }
+          }
+        },
+        {
+          "term": {
+            "variants.barva": {
+              "value": "černá"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+
+
+
+
+
