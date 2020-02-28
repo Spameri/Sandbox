@@ -205,6 +205,557 @@ GET products/_search
   }
 }
 
+POST products/_doc
+{
+  "name": "EXCIPIAL U HYDROLOTIO 20MG/ML kožní podání EML 200ML",
+  "isPublic": true,
+  "databaseId": 108739,
+  "content": "Excipial U Hydrolotio chrání a ošetřuje pokožku. Pomocí hydratace a tvorby přirozeného ochranného filmu z lipidů zlepšuje a normalizuje stav pokožky, vyhlazuje její drsný povrch a napomáhá jí udržovat si svou elasticitu a odolnost proti vnějším vlivům. Přípravek je možné použít při péči o pokožku při doléčování kožních onemocnění.",
+  "purpose": [
+      "Koronavir"
+    ],
+  "availability": "skladem",
+  "variants": [
+    {
+      "price": 1200,
+      "barva": "žlutá"
+    },
+    {
+      "price": 1000,
+      "barva": "černá"
+    }
+  ]
+}
+
+POST products_analyzers/_doc
+{
+  "name": "Xbox 720",
+  "availability": "Skladem",
+  "isPublic": true,
+  "price": 450
+}
+
+PUT products
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}
+
+PUT products_analyzers/_mapping
+{
+  "properties": {
+    "name": {
+      "fields": {
+        "czechDictionary": {
+          "analyzer": "czechDictionary",
+          "type": "text"
+        },
+        "czechSynonym": {
+          "analyzer": "czechSynonym",
+          "type": "text"
+        },
+        "egdeNgram": {
+          "analyzer": "customEdgeNgram",
+          "type": "text"
+        },
+        "wordSplit": {
+          "analyzer": "customWordDelimiter",
+          "type": "text"
+        },
+        "wordJoin": {
+          "analyzer": "customCommonGrams",
+          "type": "text"
+        }
+      },
+      "type": "text",
+      "fielddata": true
+    }
+  }
+}
+
+PUT products_analyzers/_mapping
+{
+  "properties": {
+    "availability": {
+      "type": "keyword"
+    },
+    "price": {
+      "type": "long"
+    },
+    "isPublic": {
+      "type": "boolean"
+    }
+  }
+}
+
+GET products_analyzers/_mapping
+
+
+GET products_analyzers/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "exists": {
+            "field": "price"
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "term": {
+            "isPublic": {
+              "value": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "availability": {
+      "terms": {
+        "field": "availability",
+        "size": 10
+      }
+    },
+    "price": {
+      "terms": {
+        "field": "price",
+        "size": 1
+      }
+    },
+    "priceRange": {
+      "range": {
+        "field": "price",
+        "ranges": [
+          {
+            "key": "Cena od 0 kč do 500 kč",
+            "from": 0,
+            "to": 500
+          },
+          {
+            "key": "Cena od 500 kč",
+            "from": 500
+          }
+        ]
+      }
+    },
+    "priceHistogram": {
+      "histogram": {
+        "field": "price",
+        "interval": 500
+      }
+    }
+  },
+  "size": 0
+}
+
+GET spameri_simple_product/_mapping
+
+
+PUT products_ngram
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customEdegeNgram": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        }
+      }
+    }
+  }
+}
+
+GET products_synonym/_analyze
+{
+  "text": ["PlayStation 5 je super a růžový, protože má AMD procesor. Chci 10 ks hned"]
+  , "filter": [
+    "customSynonym"
+    ]
+  , "tokenizer": "whitespace"
+}
+
+
+PUT products_stop
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "czechStopWords": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+PUT products_dictionary
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "dictionary_CZ": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        }
+      }
+    }
+  }
+}
+
+PUT products_common_grams
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customCommonGrams": {
+          "type": "common_grams",
+          "common_words": [
+            "ks",
+            "l",
+            "litr",
+            "litry",
+            "litrů"
+          ]
+        },
+        "czechStopWords": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_",
+            "ks",
+            "l",
+            "litr",
+            "litry",
+            "litrů"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+PUT products_word_delimiter
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customWordDelimiter": {
+          "type": "word_delimiter",
+          "catenate_all" : "true"
+        }
+      }
+    }
+  }
+}
+
+
+PUT products_stemmer
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customStemmer": {
+          "type": "stemmer",
+          "name": "czech"
+        }
+      }
+    }
+  }
+}
+
+
+PUT products_synonym
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customSynonym": {
+          "type": "synonym",
+          "synonyms" : [
+            "PlayStation => PS",
+            "PlayStation => PSko",
+            "PlayStation => Xbox"
+            ]
+        }
+      }
+    }
+  }
+}
+
+DELETE products_analyzers
+
+PUT products_analyzers
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customEdegeNgram": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        },
+        "customSynonym": {
+          "type": "synonym",
+          "synonyms" : [
+            "PlayStation => PS",
+            "PlayStation => PSko",
+            "PlayStation => Xbox"
+            ]
+        },
+        "customStemmer": {
+          "type": "stemmer",
+          "name": "czech"
+        },
+        "customWordDelimiter": {
+          "type": "word_delimiter",
+          "catenate_all" : "true"
+        },
+        "dictionary_CZ": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        },
+        "czechStopWords": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_",
+            "ks",
+            "l",
+            "litr",
+            "litry",
+            "litrů"
+
+          ]
+        },
+        "customCommonGrams": {
+          "type": "common_grams",
+          "common_words": [
+            "ks",
+            "l",
+            "litr",
+            "litry",
+            "litrů"
+          ]
+        }
+      },
+      "analyzer": {
+        "czechDictionary": {
+          "filter": [
+            "lowercase",
+            "czechStopWords",
+            "dictionary_CZ",
+            "unique",
+            "asciifolding"
+          ],
+          "type": "custom",
+          "tokenizer": "standard"
+        },
+        "customEdgeNgram": {
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "stop",
+            "customEdegeNgram",
+            "unique"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        },
+        "customCommonGrams": {
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "stop",
+            "customCommonGrams",
+            "unique"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        },
+        "customWordDelimiter": {
+          "filter": [
+            "stop",
+            "customWordDelimiter",
+            "asciifolding",
+            "lowercase",
+            "unique"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        },
+        "czechSynonym": {
+          "filter": [
+            "lowercase",
+            "czechStopWords",
+            "customSynonym",
+            "unique",
+            "asciifolding"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        }
+      }
+    }
+  }
+}
+
+GET products_analyzers/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "exists": {
+            "field": "price"
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "coJeSkladem": {
+      "aggs": {
+        "availability": {
+          "terms": {
+            "field": "price",
+            "size": 10
+          }
+        }
+      },
+      "filter": {
+        "term": {
+          "availability": {
+            "value": "Skladem"
+          }
+        }
+      }
+    },
+    "coNeníSkladem": {
+      "aggs": {
+        "availability": {
+          "terms": {
+            "field": "price",
+            "size": 10
+          }
+        }
+      },
+      "filter": {
+        "term": {
+          "availability": {
+            "value": "Nedostupné"
+          }
+        }
+      }
+    }
+  },
+  "size": 0
+}
+
+GET products_analyzers/_search
+{
+  "sort": [
+    {
+      "availability": {
+        "order": "desc",
+        "missing": "_first"
+      },
+      "price": {
+        "order": "asc"
+      }
+    }
+  ],
+  "size": 20
+}
+
+
+
+PUT products_nested
+
+
+PUT products_nested/_mapping
+{
+  "properties": {
+    "users": {
+      "type": "nested"
+    }
+  }
+}
+
+POST products_nested/_doc
+{
+  "users": [
+    {
+      "first" : "John",
+      "last" :  "Smith"
+    },
+    {
+      "first" : "Alice",
+      "last" :  "White"
+    }
+  ]
+}
+
+
+GET products_nested/_search
+{
+  "query": {
+    "nested": {
+      "path": "users",
+      "query": {
+        "bool": {
+          "must": [
+        {
+          "match": {
+            "users.first": "John"
+          }
+        },
+        {
+          "match": {
+            "users.last":  "Smith"
+          }
+        }
+      ]}}}
+  },
+  "aggs": {
+    "users": {
+      "top_hits": {
+        "size": 10
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
