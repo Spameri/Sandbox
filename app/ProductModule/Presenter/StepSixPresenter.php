@@ -81,7 +81,8 @@ class StepSixPresenter extends \App\Presenter\BasePresenter
 				3,
 				\Spameri\ElasticQuery\Query\Match\MultiMatchType::BEST_FIELDS,
 				\Spameri\ElasticQuery\Query\Match\Operator::OR,
-				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
+				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO),
+				'czechDictionary'
 			)
 		);
 		$query->addMustQuery($subQuery);
