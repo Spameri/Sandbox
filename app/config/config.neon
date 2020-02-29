@@ -32,7 +32,12 @@ session:
 services:
 	router: App\RouterFactory::createRouter
 
+#	Uncomment this if you want to log export to elasctic
+#	- Spameri\Elastic\Import\Run\LoggerHandler(@monolog.logger)
+
+
 includes:
 	- ../ProductModule/Config/Product.neon
 	- ../ProductModule/Config/SimpleProduct.neon
+	- ../ProductModule/Config/WorkshopProduct.neon
 	- ../ProductModule/Config/ProductModule.neon

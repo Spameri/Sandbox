@@ -1,8 +1,8 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace App\ProductModule\Entity;
 
-class SimpleProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterface
+class WorkshopProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterface
 {
 
 	/**
@@ -21,8 +21,6 @@ class SimpleProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterf
 
 	public function provide(): \Spameri\ElasticQuery\Mapping\Settings
 	{
-		// ===== ANALYZERS =====
-
 		$stopWords = [
 			'angin',
 			'ml',
@@ -61,11 +59,13 @@ class SimpleProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterf
 		];
 		$settings = new \Spameri\ElasticQuery\Mapping\Settings($this->indexName);
 		$stopFilter = new \Spameri\ElasticQuery\Mapping\Filter\Stop\Czech($stopWords);
-		$czechDictionary = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\CzechDictionary($stopFilter);
+		$czechDictionary = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\CzechDictionary(
+			$stopFilter
+		);
 		$settings->addAnalyzer($czechDictionary);
 
-		$lowerCase = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\Lowercase();
-		$settings->addAnalyzer($lowerCase);
+		$lowercase = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\Lowercase();
+		$settings->addAnalyzer($lowercase);
 
 		$edgeNgram = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\EdgeNgram(
 			2,
@@ -74,17 +74,24 @@ class SimpleProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterf
 		);
 		$settings->addAnalyzer($edgeNgram);
 
-		$worldSplit = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\WordDelimiter(
-			$stopFilter
-		);
-		$settings->addAnalyzer($worldSplit);
+		$wordSplit = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\WordDelimiter();
+		$settings->addAnalyzer($wordSplit);
 
-		$worldJoin = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\CommonGrams(
+		$wordJoin = new \Spameri\ElasticQuery\Mapping\Analyzer\Custom\CommonGrams(
 			$stopWords
 		);
-		$settings->addAnalyzer($worldJoin);
+		$settings->addAnalyzer($wordJoin);
 
-		// ===== FIELDS =====
+		$synonym = new \App\ProductModule\ElasticQuery\SynonymAnalyzer(
+			$stopFilter,
+			[
+				'paralen => kaše',
+			]
+		);
+		$settings->addAnalyzer($synonym);
+
+
+		// =========== FIELDS
 
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
@@ -97,6 +104,7 @@ class SimpleProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterf
 			'name',
 			\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT
 		);
+
 		$nameFields->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'czechDictionary',
@@ -115,16 +123,24 @@ class SimpleProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterf
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'wordSplit',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
-				$worldSplit
+				$wordSplit
 			)
 		);
 		$nameFields->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'wordJoin',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
-				$worldJoin
+				$wordJoin
 			)
 		);
+		$nameFields->addMappingField(
+			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
+				'czechSynonym',
+				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
+				$synonym
+			)
+		);
+
 		$settings->addMappingSubField($nameFields);
 
 		$settings->addMappingField(
@@ -134,66 +150,76 @@ class SimpleProductConfig implements \Spameri\Elastic\Settings\IndexConfigInterf
 				$czechDictionary
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'alias',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_KEYWORD
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'image',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_KEYWORD
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'price',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_DOUBLE
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'availability',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
-				$lowerCase
+				$lowercase,
+				TRUE
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'tags',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
-				$lowerCase,
+				$lowercase,
 				TRUE
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'categories',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
-				$lowerCase,
+				$lowercase,
 				TRUE
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'purpose',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
-				$lowerCase,
+				$lowercase,
 				TRUE
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'venality',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_INTEGER
 			)
 		);
+
 		$settings->addMappingField(
 			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
 				'brand',
 				\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_TEXT,
-				NULL,
+				$lowercase,
 				TRUE
 			)
 		);
