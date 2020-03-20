@@ -224,6 +224,22 @@ class WorkshopProductConfig implements \Spameri\Elastic\Settings\IndexConfigInte
 			)
 		);
 
+		$settings->addMappingFieldObject(
+			new \Spameri\ElasticQuery\Mapping\Settings\Mapping\FieldObject(
+				'parameters',
+				new \Spameri\ElasticQuery\Mapping\Settings\Mapping\FieldCollection(
+					new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
+						'id',
+						\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_KEYWORD
+					),
+					new \Spameri\ElasticQuery\Mapping\Settings\Mapping\Field(
+						'uid',
+						\Spameri\Elastic\Model\ValidateMapping\AllowedValues::TYPE_KEYWORD
+					)
+				)
+			)
+		);
+
 		return $settings;
 	}
 

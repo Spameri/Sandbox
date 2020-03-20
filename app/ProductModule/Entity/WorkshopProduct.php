@@ -70,6 +70,11 @@ class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements 
 	 */
 	private $brand;
 
+	/**
+	 * @var array
+	 */
+	private $parameters;
+
 
 	public function __construct(
 		\Spameri\Elastic\Entity\Property\IElasticId $id,
@@ -84,7 +89,8 @@ class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements 
 		array $categories,
 		array $purpose,
 		int $venality,
-		string $brand
+		string $brand,
+		array $parameters
 	)
 	{
 		$this->id = $id;
@@ -100,6 +106,7 @@ class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements 
 		$this->purpose = $purpose;
 		$this->venality = $venality;
 		$this->brand = $brand;
+		$this->parameters = $parameters;
 	}
 
 

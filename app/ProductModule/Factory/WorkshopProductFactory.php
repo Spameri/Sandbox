@@ -20,7 +20,8 @@ class WorkshopProductFactory implements \Spameri\Elastic\Factory\IEntityFactory
 			$hit->getValue('categories'),
 			$hit->getValue('purpose'),
 			$hit->getValue('venality'),
-			$hit->getValue('brand')
+			$hit->getValue('brand'),
+			$hit->getValue('parameters')
 		);
 	}
 

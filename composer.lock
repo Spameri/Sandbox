@@ -1843,12 +1843,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/ElasticQuery.git",
-                "reference": "112375cb1fec61bcbb8a0ed13ebcb321da0713d8"
+                "reference": "a51b4d457685f88ac210b44bd1056e4dbcabcecc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/112375cb1fec61bcbb8a0ed13ebcb321da0713d8",
-                "reference": "112375cb1fec61bcbb8a0ed13ebcb321da0713d8",
+                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/a51b4d457685f88ac210b44bd1056e4dbcabcecc",
+                "reference": "a51b4d457685f88ac210b44bd1056e4dbcabcecc",
                 "shasum": ""
             },
             "require": {
@@ -1876,7 +1876,7 @@
                 }
             ],
             "description": "Objects instead of arrays for querying to ElasticSearch.",
-            "time": "2020-02-24T01:13:46+00:00"
+            "time": "2020-02-29T07:46:18+00:00"
         },
         {
             "name": "symfony/console",

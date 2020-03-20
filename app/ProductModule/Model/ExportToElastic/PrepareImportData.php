@@ -53,10 +53,30 @@ class PrepareImportData implements \Spameri\Elastic\Import\PrepareImportDataInte
 			$tags[] = 'Akční cena';
 		}
 
+		// MUST be indexed from 0
 		$purpose[] = \array_rand(\array_flip(Purposes::VALUES));
 		$brand = \array_rand(\array_flip(Brands::VALUES));
 		$categories[] = \array_rand(\array_flip(Categories::VALUES));
 		$categories[] = \array_rand(\array_flip(Categories::VALUES));
+
+
+		$parameters[] = [
+			'floatValue' => (float) $entityData['amount'],
+//			'numberValue' => '',
+//			'stringValue' => '',
+			'name' => (string) \round($entityData['amount']),
+			'alias' => (string) \round($entityData['amount']),
+			'parameter' => [
+				'name' => 'price',
+				'id' => 1,
+			],
+			'id' => 'p1',
+			'uid' => 'p1_' . (string) \round($entityData['amount']),
+			'position' => 1,
+		];
+
+
+		$venality = \random_int(0, 1000);
 
 		return new \App\ProductModule\Entity\WorkshopProduct(
 			$elasticId,
@@ -70,8 +90,9 @@ class PrepareImportData implements \Spameri\Elastic\Import\PrepareImportDataInte
 			$tags,
 			$categories,
 			$purpose,
-			\random_int(0, 1000),
-			$brand
+			$venality,
+			$brand,
+			$parameters
 		);
 	}
 

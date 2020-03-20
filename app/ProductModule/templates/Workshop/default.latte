@@ -16,17 +16,19 @@
 		<h2>You have searched: {$queryString}</h2>
 
 		<div n:if="$products" class="parameters">
-			<ul n:if="$products->aggregations()->getAggregation('price')" class="prices">
-                {foreach $products->aggregations()->getAggregation('price')->buckets() as $priceBucket}
+			<ul class="prices">
+                {foreach $filterOptions->getValues() as $parameterId => $parameterValues}
+					{foreach $parameterValues as $parameterValueKey => $parameterValue}
 					<li>
-						<a n:href="this priceFrom => $priceBucket->from(), priceTo => $priceBucket->to()">
-							{$priceBucket->key()}
+						<a n:href="this (expand) $filterOptions->applyValue($parameterId, $parameterValueKey)">
+							{$parameterValue['value']}
 							(
-								{if  $priceBucket->from() != $priceFrom}+{/if}
-								{$priceBucket->docCount()}
+								{=$filterOptions->isActive($parameterId, $parameterValue) ? '+ ' : '- '}
+								{$filterOptions->getActiveCount($parameterId, $parameterValueKey)}
 							)
 						</a>
 					</li>
+                {/foreach}
                 {/foreach}
 			</ul>
 			<hr>

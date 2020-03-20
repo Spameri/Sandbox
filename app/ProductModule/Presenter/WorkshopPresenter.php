@@ -31,9 +31,55 @@ class WorkshopPresenter extends \App\Presenter\BasePresenter
 			$products = [];
 		}
 
+		$parameterArray = [];
+		foreach ($products->aggregations()->getAggregation('parameter_value_ids')->buckets() as $bucket) {
+			[$parameterId, $parameterValue] = \explode('_', $bucket->key());
+			$parameterArray[$parameterId][$parameterValue]['value'] = $parameterValue;
+		}
+
+		// Iterate over $_GET parameters
+		$elasticQuery = new \Spameri\ElasticQuery\ElasticQuery();
+
+		foreach (['p1'] as $parameterId) {
+			$filterFilledByP2 = new \Spameri\ElasticQuery\Filter\FilterCollection();
+			$elasticQuery->addAggregation(
+				new \Spameri\ElasticQuery\Aggregation\LeafAggregationCollection(
+					'parameter_' . $parameterId,
+					$filterFilledByP2,
+					new \Spameri\ElasticQuery\Aggregation\Term(
+						'parameters.uid'
+					)
+				)
+			);
+		}
+
+		$activeParameters = [];
+		$filterOptions = new \App\ProductModule\Entity\FilterOptions($parameterArray, $activeParameters);
+
+
+		$response = $this->productService->getAllBy($elasticQuery);
+		/** @var \Spameri\ElasticQuery\Response\Result\Aggregation $aggregation */
+		foreach ($response->aggregations() as $aggregation) {
+			/** @var \Spameri\ElasticQuery\Response\Result\Aggregation\Bucket $bucket */
+			foreach ($aggregation->buckets() as $bucket) {
+				\Tracy\Debugger::barDump($bucket->key());
+				[$parameterId, $parameterValue] = \explode('_', $bucket->key());
+				$filterOptions->setCount($parameterId, $parameterValue, $bucket->docCount());
+			}
+		}
+
+		\Tracy\Debugger::barDump($filterOptions->getValues());
+
+
+
+
 		$this->getTemplate()->add(
 			'products',
 			$products
+		);
+		$this->getTemplate()->add(
+			'filterOptions',
+			$filterOptions
 		);
 		$this->getTemplate()->add(
 			'queryString',
@@ -94,23 +140,6 @@ class WorkshopPresenter extends \App\Presenter\BasePresenter
 
 		// ===============
 
-		$mustCollection->add(
-			new \Spameri\ElasticQuery\Query\Term(
-				'availability',
-				'skladem'
-			)
-		);
-
-		$mustCollection->add(
-			new \Spameri\ElasticQuery\Query\Range(
-				'price',
-				1
-			)
-		);
-
-		$mustCollection->add(
-			new \Spameri\ElasticQuery\Query\Exists('image')
-		);
 
 		$query->addMustQuery(
 			new \Spameri\ElasticQuery\Query\QueryCollection(
@@ -125,61 +154,24 @@ class WorkshopPresenter extends \App\Presenter\BasePresenter
 
 		// =========== AGGS
 
-
 		$query->addAggregation(
 			new \Spameri\ElasticQuery\Aggregation\LeafAggregationCollection(
-				'price',
+				'parameter_ids',
 				NULL,
-				new \Spameri\ElasticQuery\Aggregation\Range(
-					'price',
-					TRUE,
-					new \Spameri\ElasticQuery\Aggregation\RangeValueCollection(
-						new \Spameri\ElasticQuery\Aggregation\RangeValue(
-							'0 - 50 Kč',
-							0,
-							50
-						),
-						new \Spameri\ElasticQuery\Aggregation\RangeValue('50 - 100 Kč', 50, 100),
-						new \Spameri\ElasticQuery\Aggregation\RangeValue('100 - 200 Kč', 100, 200),
-						new \Spameri\ElasticQuery\Aggregation\RangeValue('200 - 500 Kč', 200, 500),
-						new \Spameri\ElasticQuery\Aggregation\RangeValue('500 - 1000 Kč', 500, 1000)
-					)
-				)
-			)
-		);
-
-
-		$priceFrom = $this->getParameter('priceFrom');
-		$this->template->add('priceFrom', $priceFrom);
-		$priceTo = $this->getParameter('priceTo');
-		$filter = new \Spameri\ElasticQuery\Filter\FilterCollection();
-		if ($priceFrom !== NULL && $priceTo !== NULL ) {
-			$filter->must()->add(
-				new \Spameri\ElasticQuery\Query\Range(
-					'price',
-					$priceFrom,
-					$priceTo
-				)
-			);
-		}
-		$query->addAggregation(
-			new \Spameri\ElasticQuery\Aggregation\LeafAggregationCollection(
-				'categories',
-				$filter,
 				new \Spameri\ElasticQuery\Aggregation\Term(
-					'categories',
-					100
+					'parameters.parameter.id',
+					10000
 				)
 			)
 		);
 
 		$query->addAggregation(
 			new \Spameri\ElasticQuery\Aggregation\LeafAggregationCollection(
-				'brands',
+				'parameter_value_ids',
 				NULL,
 				new \Spameri\ElasticQuery\Aggregation\Term(
-					'brand',
-					1000
+					'parameters.uid',
+					10000
 				)
 			)
 		);
