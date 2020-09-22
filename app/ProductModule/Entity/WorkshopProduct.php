@@ -2,11 +2,11 @@
 
 namespace App\ProductModule\Entity;
 
-class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements \Spameri\Elastic\Entity\IElasticEntity
+class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements \Spameri\Elastic\Entity\ElasticEntityInterface
 {
 
 	/**
-	 * @var \Spameri\Elastic\Entity\Property\IElasticId
+	 * @var \Spameri\Elastic\Entity\Property\ElasticIdInterface
 	 */
 	private $id;
 
@@ -72,7 +72,7 @@ class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements 
 
 
 	public function __construct(
-		\Spameri\Elastic\Entity\Property\IElasticId $id,
+		\Spameri\Elastic\Entity\Property\ElasticIdInterface $id,
 		int $databaseId,
 		string $name,
 		?string $content,
@@ -103,7 +103,7 @@ class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements 
 	}
 
 
-	public function id(): \Spameri\Elastic\Entity\Property\IElasticId
+	public function id(): \Spameri\Elastic\Entity\Property\ElasticIdInterface
 	{
 		return $this->id;
 	}

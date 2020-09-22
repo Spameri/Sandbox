@@ -32,7 +32,7 @@ class PrepareImportData implements \Spameri\Elastic\Import\PrepareImportDataInte
 			$existingProduct = $this->simpleProductService->getBy($query);
 			$elasticId = $existingProduct->id();
 
-		} catch (\Spameri\Elastic\Exception\ElasticSearchException $exception) {
+		} catch (\Spameri\Elastic\Exception\AbstractElasticSearchException $exception) {
 			$elasticId = new \Spameri\Elastic\Entity\Property\EmptyElasticId();
 		}
 

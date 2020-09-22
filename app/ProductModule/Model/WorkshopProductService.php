@@ -2,14 +2,14 @@
 
 namespace App\ProductModule\Model;
 
-class WorkshopProductService extends \Spameri\Elastic\Model\BaseService
+class WorkshopProductService extends \Spameri\Elastic\Model\AbstractBaseService
 {
 
 	/**
 	 * @param \Spameri\ElasticQuery\ElasticQuery $elasticQuery
-	 * @return \Spameri\Elastic\Entity\IElasticEntity&\App\ProductModule\Entity\WorkshopProduct
+	 * @return \Spameri\Elastic\Entity\ElasticEntityInterface&\App\ProductModule\Entity\WorkshopProduct
 	 */
-	public function getBy(\Spameri\ElasticQuery\ElasticQuery $elasticQuery): \Spameri\Elastic\Entity\IElasticEntity
+	public function getBy(\Spameri\ElasticQuery\ElasticQuery $elasticQuery): \Spameri\Elastic\Entity\ElasticEntityInterface
 	{
 		return parent::getBy($elasticQuery);
 	}

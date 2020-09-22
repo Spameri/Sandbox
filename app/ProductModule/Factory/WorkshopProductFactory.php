@@ -2,7 +2,7 @@
 
 namespace App\ProductModule\Factory;
 
-class WorkshopProductFactory implements \Spameri\Elastic\Factory\IEntityFactory
+class WorkshopProductFactory implements \Spameri\Elastic\Factory\EntityFactoryInterface
 {
 
 	public function create(\Spameri\ElasticQuery\Response\Result\Hit $hit): \Generator
