@@ -36,7 +36,11 @@ services:
 
 
 includes:
+	- ../ProductModule/Config/ProductModule.neon
+
 	- ../ProductModule/Config/Product.neon
 	- ../ProductModule/Config/SimpleProduct.neon
 	- ../ProductModule/Config/WorkshopProduct.neon
-	- ../ProductModule/Config/ProductModule.neon
+
+	- ../WorkshopTwoModule/Config/WorkshopTwoModule.neon
+	- ../WorkshopTwoModule/Config/WorkshopProduct.neon
