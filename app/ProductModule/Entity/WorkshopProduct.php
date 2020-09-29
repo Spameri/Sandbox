@@ -87,6 +87,7 @@ class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements 
 		string $brand
 	)
 	{
+		parent::__construct($id);
 		$this->id = $id;
 		$this->databaseId = $databaseId;
 		$this->name = $name;
@@ -115,7 +116,7 @@ class WorkshopProduct extends \Spameri\Elastic\Entity\AbstractImport implements 
 	}
 
 
-	public function getId(): \Spameri\Elastic\Entity\Property\ElasticId
+	public function getId(): \Spameri\Elastic\Entity\Property\ElasticIdInterface
 	{
 		return $this->id;
 	}
