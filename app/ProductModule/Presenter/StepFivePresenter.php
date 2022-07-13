@@ -53,7 +53,6 @@ class StepFivePresenter extends \App\Presenter\BasePresenter
 
 		$form->onSuccess[] = function () use ($form) {
 			$this->redirect(
-				301,
 				':Product:StepFive:default',
 				[
 					'queryString' => $form->getValues()->queryString,
@@ -70,12 +69,13 @@ class StepFivePresenter extends \App\Presenter\BasePresenter
 		$query = new \Spameri\ElasticQuery\ElasticQuery();
 		$subQuery = new \Spameri\ElasticQuery\Query\QueryCollection();
 		$subQuery->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\Match(
+			new \Spameri\ElasticQuery\Query\ElasticMatch(
 				'name',
 				$queryString,
 				1,
-				\Spameri\ElasticQuery\Query\Match\Operator::OR,
-				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
+				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO),
+				NULL,
+				\Spameri\ElasticQuery\Query\Match\Operator::OR
 			)
 		);
 		$query->addShouldQuery($subQuery);

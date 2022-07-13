@@ -1,7 +1,7 @@
 extensions:
 	spameriElasticSearch: Spameri\Elastic\DI\SpameriElasticSearchExtension
 	console: Kdyby\Console\DI\ConsoleExtension
-	monolog: Kdyby\Monolog\DI\MonologExtension
+#	monolog: Kdyby\Monolog\DI\MonologExtension
 	dibi: Dibi\Bridges\Nette\DibiExtension22
 
 dibi:
@@ -14,6 +14,7 @@ dibi:
 
 spameriElasticSearch:
 	debug: true
+	host: 172.26.112.1
 
 parameters:
 
@@ -30,6 +31,9 @@ session:
 
 services:
 	router: App\RouterFactory::createRouter
+
+	consoleOutput:
+		class: \Symfony\Component\Console\Output\ConsoleOutput
 
 #	Uncomment this if you want to log export to elasctic
 #	- Spameri\Elastic\Import\Run\LoggerHandler(@monolog.logger)

@@ -53,7 +53,6 @@ class WorkshopPresenter extends \App\Presenter\BasePresenter
 
 		$form->onSuccess[] = function () use ($form) {
 			$this->redirect(
-				301,
 				':Product:Workshop:default',
 				[
 					'queryString' => $form->getValues()->queryString,
@@ -83,11 +82,10 @@ class WorkshopPresenter extends \App\Presenter\BasePresenter
 				],
 				$queryString,
 				3,
+				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO),
 				\Spameri\ElasticQuery\Query\Match\MultiMatchType::BEST_FIELDS,
+				NULL,
 				\Spameri\ElasticQuery\Query\Match\Operator::OR,
-				new \Spameri\ElasticQuery\Query\Match\Fuzziness(
-					\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO
-				),
 				'czechDictionary'
 			)
 		);

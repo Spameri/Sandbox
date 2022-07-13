@@ -1,6 +1,6 @@
 services:
 	productService:
-		class: App\ProductModule\Model\ProductService(
+		factory: App\ProductModule\Model\ProductService(
 			%spameriElasticSearch.entities.Product.index%,
 			@productFactory,
 			@productCollectionFactory
@@ -15,7 +15,7 @@ services:
 #### SimpleProduct
 
 	simpleProductService:
-		class: App\ProductModule\Model\SimpleProductService(
+		factory: App\ProductModule\Model\SimpleProductService(
 			%spameriElasticSearch.entities.SimpleProduct.index%,
 			@simpleProductFactory,
 			@simpleProductCollectionFactory
@@ -34,10 +34,12 @@ services:
 			- console.command
 
 	simpleProductConfig:
-		class: App\ProductModule\Entity\SimpleProductConfig(%spameriElasticSearch.entities.SimpleProduct.index%)
+		factory: App\ProductModule\Entity\SimpleProductConfig(%spameriElasticSearch.entities.SimpleProduct.index%)
 
 	exportToElastic:
 		class: App\ProductModule\Model\ExportToElastic
+		arguments:
+			logDir: log
 
 	simpleProductDataProvider:
 		class: App\ProductModule\Model\ExportToElastic\DataProvider

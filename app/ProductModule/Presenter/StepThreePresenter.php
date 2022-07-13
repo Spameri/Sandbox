@@ -52,7 +52,6 @@ class StepThreePresenter extends \App\Presenter\BasePresenter
 
 		$form->onSuccess[] = function () use ($form) {
 			$this->redirect(
-				301,
 				':Product:StepThree:default',
 				[
 					'queryString' => $form->getValues()->queryString,
@@ -70,7 +69,7 @@ class StepThreePresenter extends \App\Presenter\BasePresenter
 		$should = new \Spameri\ElasticQuery\Query\ShouldCollection();
 
 		$should->add(
-			new \Spameri\ElasticQuery\Query\Match(
+			new \Spameri\ElasticQuery\Query\ElasticMatch(
 				'name',
 				$queryString,
 				1,

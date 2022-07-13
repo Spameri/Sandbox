@@ -53,7 +53,6 @@ class StepTwoPresenter extends \App\Presenter\BasePresenter
 
 		$form->onSuccess[] = function () use ($form) {
 			$this->redirect(
-				301,
 				':Product:StepTwo:default',
 				[
 					'queryString' => $form->getValues()->queryString,

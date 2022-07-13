@@ -29,6 +29,8 @@ services:
 
 	workshopTwo.ExportToElastic:
 		factory: App\WorkshopTwoModule\Model\ExportToElastic
+		arguments:
+			logDir: log
 
 	workshopTwo.ExportToElasticCommand:
 		factory: App\WorkshopTwoModule\Command\ExportToElastic
