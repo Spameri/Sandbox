@@ -14,7 +14,6 @@ dibi:
 
 spameriElasticSearch:
 	debug: true
-	host: 172.26.112.1
 
 parameters:
 
@@ -48,3 +47,5 @@ includes:
 
 	- ../WorkshopTwoModule/Config/WorkshopTwoModule.neon
 	- ../WorkshopTwoModule/Config/WorkshopProduct.neon
+
+	- ../WorkshopThreeModule/config/workshopThree.neon

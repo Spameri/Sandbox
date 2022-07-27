@@ -24,7 +24,7 @@ class SynonymAnalyzer
 
 
 	public function __construct(
-		?\Spameri\ElasticQuery\Mapping\Filter\Stop $stopFilter = NULL,
+		?\Spameri\ElasticQuery\Mapping\Filter\AbstractStop $stopFilter,
 		array $synonym
 	)
 	{
