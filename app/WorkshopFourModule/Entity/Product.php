@@ -5,6 +5,7 @@ namespace App\WorkshopFourModule\Entity;
 class Product
 {
 
+    public const ID = 'id';
     public const TITLE = 'title';
     public const DESCRIPTION = 'description';
     public const PRICE = 'price';
@@ -41,7 +42,10 @@ class Product
     public function entityVariables(): array
     {
         $vars = \get_object_vars($this);
-        $vars[self::PUBLISHED] = $this->published->format('Y-m-d');
+        $vars[self::ID] = $this->id->value();
+        $vars[self::PUBLISHED] = $this->published->format(
+            \Spameri\Elastic\Entity\Property\DateTime::FORMAT
+        );
 
         return $vars;
     }
