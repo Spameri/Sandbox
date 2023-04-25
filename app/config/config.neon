@@ -49,3 +49,5 @@ includes:
 	- ../WorkshopTwoModule/Config/WorkshopProduct.neon
 
 	- ../WorkshopThreeModule/config/workshopThree.neon
+
+	- ../WorkshopFourModule/config/workshopFour.neon

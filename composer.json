@@ -24,7 +24,7 @@
 		"nette/security": "^v3.0.1",
 		"nette/utils": "^v3.2.5",
 		"latte/latte": "^v2.11.5",
-		"tracy/tracy": "^v2.9.0",
+		"tracy/tracy": "^v2.10.0",
 		"spameri/elastic": "v1.0.0",
 	  	"spameri/elastic-query": "v1.0.0",
 		"dibi/dibi": "^4.1",

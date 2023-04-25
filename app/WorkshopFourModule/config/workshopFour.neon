@@ -1,0 +1,14 @@
+services:
+	workshopFour.exportToElasticCommand:
+		class: App\WorkshopFourModule\Command\ExportToElastic
+		tags:
+			- kdyby.console.command
+			- console.command
+
+	workshopFour.productConfig:
+		class: App\WorkshopFourModule\Entity\ProductConfig
+		arguments:
+			index: product
+
+	workshopFour.create:
+		class: App\WorkshopFourModule\Elastic\Create
