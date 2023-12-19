@@ -1,0 +1,1585 @@
+GET _cat/indices
+
+GET _search
+
+POST products/_doc
+{
+  "name": "PlayStation"
+}
+
+GET products/_doc/p59KkYkBuYntdsBe7Cpi
+
+
+PUT products/_doc/1000
+{
+  "price": 10000
+}
+
+PATCH products/_doc/pp84kYkBuYntdsBeLCpO
+{
+  "name": "PlayStation"
+}
+
+POST products/_update/pp84kYkBuYntdsBeLCpO
+{
+  "doc": {
+    "isPublic": 1
+  }
+}
+
+GET products/_search
+
+DELETE products/_doc/pp84kYkBuYntdsBeLCpO
+
+GET products/_settings
+
+GET products/_mapping
+
+POST products_old/_doc
+{
+  "name": "Notebook",
+  "isPublic": true
+}
+
+GET _alias
+
+
+POST _aliases
+{
+  "actions": [
+    {
+      "remove": {
+        "index": "products_old",
+        "alias": "product_production"
+      }
+    },
+    {
+      "add": {
+        "index": "products",
+        "alias": "product_production"
+      }
+    }
+  ]
+}
+
+GET product_production*/_search?explain=true
+
+GET _analyze
+{
+  "tokenizer": "standard",
+  "filter": [
+    "word_delimiter",
+    {
+      "type": "hunspell",
+      "locale": "cs_CZ"
+    },
+    "lowercase",
+    "asciifolding",
+    "unique"
+  ],
+  "text": [
+    "quickly and PlayStation PUŠKOHLED Puškohled puskohled VALIANT LYNX 3-9X40 AOSIR MIL-DOT and Bagr"
+  ]
+}
+
+POST products/_close
+
+POST products/_open
+
+
+PUT products
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "lowercaseAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        },
+        "czechStopAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStop"
+          ]
+        },
+        "edgeNgramAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "czechStop",
+            "edgeNgramFilter",
+            "unique"
+          ]
+        },
+        "czechDictionaryAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStop",
+            "czechDictionary",
+            "asciifolding",
+            "unique"
+          ]
+        },
+        "commonGramsAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "commonGrams"
+          ]
+        },
+        "wordDelimiterAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStop",
+            "wordDelimiter"
+          ]
+        },
+        "czechSynonymAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStop",
+            "czechSynonym",
+            "lowercase",
+            "czechStop",
+            "asciifolding",
+            "unique"
+          ]
+        }
+      },
+      "filter": {
+        "edgeNgramFilter": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 5
+        },
+        "czechStop": {
+          "type": "stop",
+          "stopwords": [
+              "_czech_",
+              "ks"
+          ]
+        },
+        "czechDictionary": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        },
+        "commonGrams": {
+          "type": "common_grams",
+          "common_words": [
+            "ks"
+          ]
+        },
+        "wordDelimiter": {
+            "type": "word_delimiter",
+            "preserve_original": true
+        },
+        "czechSynonym": {
+          "type": "synonym",
+          "synonyms": [
+            "puškohled => puškohled, kukátko, optika, trubka"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "isPublic": {
+        "type": "boolean"
+      },
+      "price": {
+        "type": "integer"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "czechDictionaryAnalyzer"
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "brand": {
+        "type": "text",
+        "fielddata": true
+      },
+      "published": {
+        "type": "date"
+      },
+      "stock": {
+        "type": "long"
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "dictionary": {
+            "type": "text",
+            "analyzer": "czechDictionaryAnalyzer"
+          },
+          "edgeNgram": {
+            "type": "text",
+            "analyzer": "edgeNgramAnalyzer"
+          },
+          "synonym": {
+            "type": "text",
+            "analyzer": "czechSynonymAnalyzer"
+          }
+        }
+      }
+    }
+  }
+}
+
+DELETE products
+
+GET products/_analyze
+{
+  "analyzer": "czechSynonymAnalyzer",
+  "text": [
+    "šampion quickly and PlayStation PUŠKOHLED puškohled puskohled VALIANT LYNX 3-9X40 AOSIR MIL-DOT and Bagr 20 ks"
+  ]
+}
+
+GET products/_settings
+
+GET products/_mapping
+
+POST products/_doc
+{
+  "name": "DIABOLO JSB MATCH PRO PUŠKU 4,52MM 500KS",
+  "brand": "Valiant",
+  "description": "Česká značka VALIANT přichází na trh s novou řadou kvalitních a cenově dostupných puškohledů pod označením LYNX.Mezi hlavní přednosti puškohledu LYNX 3-9X40 AOIR MIL-DOT patří jednodílný palcový (25,4mm) tubus z kvalitního leteckého hliníku, který zaručuje lehkost a mechanickou odolnost celé soustavy. Zvětšení 3-9x40 patří mezi nejpopulárnější na našem trhu. Puškohled je vhodný pro všechny vzduchové a palné zbraně - bez omezení ráže.",
+  "isPublic": false,
+  "price": 2000,
+  "published": "2023-09-25",
+  "stock": 15,
+  "tags": [
+    "Puškohledy"
+  ]
+}
+
+
+POST products/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "isPublic": {
+              "value": true
+            }
+          }
+        },
+        {
+          "range": {
+            "stock": {
+              "gte": 1
+            }
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "isPublic": {
+                          "value": true
+                        }
+                      }
+                    },
+                    {
+                      "term": {
+                        "hasImage": {
+                          "value": true
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "term": {
+                  "description": {
+                    "value": "auto"
+                  }
+                }
+              },
+              {
+                "term": {
+                  "tags": {
+                    "value": "Optika"
+                  }
+                }
+              },
+              {
+                "wildcard": {
+                  "name": {
+                    "value": "puško*"
+                  }
+                }
+              },
+              {
+                "match_phrase": {
+                  "name": "PUŠKOHLED VALIANT"
+                }
+              },
+              {
+                "fuzzy": {
+                  "name": {
+                    "value": "pukohled"
+                  }
+                }
+              },
+              {
+                "match": {
+                  "name": {
+                    "query": "pouzdro na puškohled",
+                    "boost": 10,
+                    "analyzer": "czechDictionaryAnalyzer",
+                    "fuzziness": "AUTO",
+                    "operator": "or",
+                    "minimum_should_match": "60%"
+                  }
+                }
+              },
+              {
+                "multi_match": {
+                  "query": "pouzdo",
+                  "fields": [
+                    "name.dictionary",
+                    "name.edgeNgram",
+                    "name.synonym"
+                  ],
+                  "analyzer": "czechDictionaryAnalyzer",
+                  "type": "best_fields"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "exists": {
+            "field": "hidden"
+          }
+        }
+      ],
+      "should": [
+        {
+          "term": {
+            "hasBigMarkup": {
+              "value": true,
+              "boost": 10
+            }
+          }
+        }
+      ]
+    }
+  },
+  "size": 10,
+  "from": 0
+}
+
+
+GET products/_search
+{
+  "aggs": {
+    "tagsCount": {
+      "filter": {
+        "term": {
+          "isPublic": false
+        }
+      },
+      "aggs": {
+        "publishedTags": {
+          "terms": {
+            "field": "tags",
+            "size": 10
+          }
+        }
+      }
+    },
+    "priceFrom1000": {
+      "range": {
+        "field": "price",
+        "ranges": [
+          {
+            "key": "Produkty s cenou od 5000 Kč",
+            "from": 5000
+          }
+        ]
+      }
+    },
+    "cenaOd": {
+      "min": {
+        "field": "price"
+      }
+    },
+    "stock": {
+      "histogram": {
+        "field": "stock",
+        "interval": 2
+      }
+    }
+  },
+  "size": 0
+}
+
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "hasImage": {
+              "value": true
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "color": {
+      "terms": {
+        "field": "color",
+        "size": 10
+      }
+    },
+    "price_fixed": {
+      "filter": {
+        "term": {
+          "color": "red"
+        }
+      },
+      "aggs": {
+        "price_inner": {
+           "range": {
+            "field": "price",
+            "ranges": [
+              { "to": 100.0 },
+              { "from": 100.0, "to": 2500.0 },
+              { "from": 2500.0 }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "size": 0
+}
+
+
+POST product_nested/_doc
+{
+  "title": "PLAVKY GANT CF RETRO SHIELD SWIM SHORTS",
+  "items": [
+    {
+      "color": "red",
+      "size": "M"
+    },
+    {
+      "color": "red",
+      "size": "XL"
+    },
+    {
+      "color": "red",
+      "size": "L"
+    },
+    {
+      "color": "green",
+      "size": "XL"
+    },
+    {
+      "color": "green",
+      "size": "L"
+    },
+    {
+      "color": "green",
+      "stocks": {
+        "praha": 1
+      },
+      "size": "S"
+    }
+  ]
+}
+
+DELETE product_nested
+
+PUT product_nested
+{
+  "mappings": {
+    "properties": {
+      "items": {
+        "type": "nested"
+      }
+    }
+  }
+}
+
+
+
+
+GET product_nested/_search
+{
+  "query": {
+    "nested": {
+      "path": "items",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "items.color": {
+                  "value": "red"
+                }
+              }
+            },
+             {
+              "term": {
+                "items.size": {
+                  "value": "m"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+GET movie/_mapping
+
+GET movie/_search
+
+GET show/_search
+
+GET feed/_search
+
+DELETE feed/_doc/mJrYw4YBgFg8Rqvds-E2
+
+GET guess/_search
+{
+  "size": 1,
+  "sort": [
+    {
+      "published": {
+        "order": "DESC",
+        "missing": "_last"
+      }
+    }
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "approved": {
+              "value": true,
+              "boost": 1
+            }
+          }
+        },
+        {
+          "range": {
+            "published": {
+              "boost": 1,
+              "lte": "2023-08-22T23:07:57"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET media/_search
+
+
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "identification": "/tFw7rdKLuyBdqU0m3brJtoFEHuE.jpg"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+PUT show
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "englishDictionary": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "englishStopWords",
+            "dictionary_EN",
+            "unique",
+            "asciifolding"
+          ]
+        },
+        "customLowercase": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "unique"
+          ]
+        },
+        "customEdgeNgram": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "stop",
+            "edge_ngram",
+            "unique"
+          ]
+        },
+        "customWordDelimiter": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "stop",
+            "word_delimiter",
+            "asciifolding",
+            "lowercase",
+            "unique"
+          ]
+        },
+        "customCommonGrams": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "stop",
+            "common_grams",
+            "unique"
+          ]
+        }
+      },
+      "tokenizer": [],
+      "filter": {
+        "lowercase": {
+          "type": "lowercase"
+        },
+        "englishStopWords": {
+          "type": "stop",
+          "stopwords": [
+            "_english_"
+          ]
+        },
+        "dictionary_EN": {
+          "type": "hunspell",
+          "locale": "en_GB"
+        },
+        "unique": {
+          "type": "unique"
+        },
+        "asciifolding": {
+          "type": "asciifolding"
+        },
+        "customEdgeNgram": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        },
+        "customWordDelimiter": {
+          "type": "word_delimiter",
+          "catenate_all": true
+        },
+        "czechStopWords": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_"
+          ]
+        },
+        "customCommonGrams": {
+          "type": "common_grams",
+          "common_words": []
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "title": {
+        "fields": {
+          "dictionary": {
+            "type": "text",
+            "analyzer": "englishDictionary"
+          },
+          "edgeNgram": {
+            "type": "text",
+            "analyzer": "customEdgeNgram"
+          },
+          "wordSplit": {
+            "type": "text",
+            "analyzer": "customWordDelimiter"
+          },
+          "wordJoin": {
+            "type": "text",
+            "analyzer": "customCommonGrams"
+          }
+        },
+        "type": "text"
+      },
+      "alternativeTitles": {
+        "properties": {
+          "alternativeTitle": null,
+          "alternativeTitleLanguage": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "year": {
+        "type": "long"
+      },
+      "identification": {
+        "properties": {
+          "trakt": {
+            "type": "keyword"
+          },
+          "slug": {
+            "type": "keyword"
+          },
+          "imdb": {
+            "type": "keyword"
+          },
+          "tmdb": {
+            "type": "keyword"
+          },
+          "csfd": {
+            "type": "keyword"
+          },
+          "tvdb": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "tagline": {
+        "type": "text",
+        "analyzer": "englishDictionary"
+      },
+      "overview": {
+        "type": "text",
+        "analyzer": "englishDictionary"
+      },
+      "released": {
+        "type": "date"
+      },
+      "runtime": {
+        "type": "long"
+      },
+      "genres": {
+        "type": "keyword"
+      },
+      "certification": {
+        "type": "keyword"
+      },
+      "titleRatings": {
+        "properties": {
+          "traktRating": {
+            "type": "keyword"
+          },
+          "traktVotes": {
+            "type": "keyword"
+          },
+          "commentCount": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "language": {
+        "type": "keyword"
+      },
+      "country": {
+        "type": "keyword"
+      },
+      "titleMedia": {
+        "properties": {
+          "trailer": {
+            "type": "keyword"
+          }
+        },
+        "type": "object"
+      },
+      "network": {
+        "type": "keyword"
+      },
+      "status": {
+        "type": "keyword"
+      }
+    },
+    "dynamic": false
+  }
+}
+
+GET user/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "exists": {
+            "field": "roles"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET guess/_search
+{
+  "query": {
+    "bool": {
+    }
+  },
+  "size": 1000,
+  "from": 0
+}
+
+POST point/_doc/KGP1Z4oBd-cj1O4K1FXE
+{
+  "user" : "RasPH4oBuo0508_L_cv6",
+  "guess" : "0P3YQooB1dxB-syx5vPU",
+  "added" : "2023-09-06T02:47:58",
+  "points" : 100,
+  "reason": "uploaded"
+}
+
+GET follow
+
+GET feed/_search
+
+POST user/_update/xzm7j4YBgL_BTMyH8hY4
+{
+  "doc": {
+   "roles": ["admin"]
+  }
+}
+
+DELETE feed/_doc/jENuJIoBcerU11O5wQ_2
+
+POST user/_doc/RasPH4oBuo0508_L_cv6
+{
+          "nickname" : "Vaclav Cevela",
+          "email" : "vcevela@gmail.com",
+          "password" : null,
+          "birthdate" : null,
+          "registered" : "2023-08-22T23:04:16",
+          "gender" : null,
+          "country" : "cs",
+          "social" : {
+            "googleToken" : "ya29.a0AfB_byAllt0g6HqZiDSyv8e0tZvt-QB0Oxu7TonMLuUK4UGAGVkPLQpTXRBUMa3hwabfSlFBm_tmO7uFOAb80xTQP-eLQILsER918Nx2uKWKOGDCyZqFgotApdLElSre9gWcjGw7ENWXm1qxowAxw3KvJS7fNiQxpPMhHFC-aCgYKATcSARASFQHsvYlsmxkbW2irdmhgYd5DAEAxOA0175",
+            "googleId" : "103676039551034708484",
+            "facebookToken" : null,
+            "facebookId" : null,
+            "traktToken" : null,
+            "traktId" : null,
+            "traktSlug" : null
+          },
+          "roles" : [
+            "admin"
+          ]
+        }
+
+
+
+GET show/_search
+
+GET media/_doc/ZEN-JIoBcerU11O5bRm7
+
+GET recommend_reason/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "reasonType": "rating"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET title_recommend_reason/_search
+
+GET user_recommend_reason/_search
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GET /
+
+GET _cat
+
+GET _mapping
+
+GET _cat/indices
+
+GET _cat/shards
+
+POST workshop_new/_doc/1000
+{
+  "price": "1000",
+  "databaseId": 1,
+  "name": "pro"
+}
+
+GET workshop/_search?explain=true
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "name": "pro"
+          }
+        },
+        {
+          "term": {
+            "name": {
+              "value": "pro"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET workshop/_search
+
+GET toprecepty/_search
+
+POST workshop/_clone
+
+POST workshop/_open
+
+POST  _aliases
+{
+  "actions": [
+      {
+        "remove": {
+          "index": "workshop",
+          "alias": "toprecepty"
+        }
+      },
+      {
+        "add": {
+          "index": "workshop_new",
+          "alias": "toprecepty"
+        }
+      }
+  ]
+}
+
+GET workshop_new,workshop/_alias
+
+GET toprecepty/_alias
+
+GET workshop/_doc/R0Y0fIwBTNICe0lxoqgF
+
+GET workshop_new/_doc/1000
+
+GET workshop_new/_settings
+
+GET workshop_new/_mapping
+
+POST workshop_new/_doc
+{
+  "price": true
+}
+
+DELETE workshop
+
+
+GET workshop_new/_analyze
+{
+  "text": [
+    "PlayStation PlayStation Zpracujeme těsto a necháme odpočinout. Plníme do formiček, nevymazáváme (vhodné jsou hladké a trošku hlubší - mušle, mašlička, vanička - já je pekla v malilinkých muffinkách).",
+    "Pekla"
+    ],
+  "tokenizer": "standard",
+  "filter": [
+    "unique",
+    "asciifolding",
+    {
+      "type": "synonym",
+      "synonyms": [ "těsto => hraj, těsto" ]
+    },
+    "word_delimiter",
+    "lowercase",
+    {
+      "type": "stop",
+      "stopwords": [
+        "_czech_",
+        "že"
+      ]
+    },
+    {
+      "type": "hunspell",
+      "locale": "cs_CZ",
+      "dictionary": ["pekla => péct"]
+    },
+    "unique"
+  ]
+}
+
+GET _analyze
+{
+  "text": ["Zpracujeme těsto"],
+  "tokenizer": "standard",
+  "filter": [
+    {
+      "type": "edge_ngram",
+      "min_gram": 2,
+      "max_gram": 6
+    }
+  ]
+}
+
+DELETE workshop_new
+
+PUT workshop_2
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "czechDictionary": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+              "lowercase",
+              "czechDictionary",
+              "asciifolding",
+              "unique"
+            ]
+        },
+        "customNgram": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "customNgramFilter",
+            "unique"
+          ]
+        },
+        "lowercaseAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase"
+          ]
+        },
+        "synonymAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+              "lowercase",
+              "czechSynonymFilter",
+              "czechDictionary",
+              "asciifolding",
+              "unique"
+          ]
+        },
+        "wordDelimiterAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "wordDelimiterFilter",
+            "lowercase",
+            "unique"
+          ]
+        },
+        "commonGramsAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "commonGramsFilter",
+            "asciifolding",
+            "lowercase",
+            "unique"
+          ]
+        }
+      },
+      "filter": {
+        "czechDictionary": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        },
+        "customNgramFilter": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        },
+        "czechStopFilter": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_"
+            ]
+        },
+        "czechSynonymFilter": {
+          "type": "synonym",
+          "synonyms": [
+              "mandle => ořech"
+            ]
+        },
+        "commonGramsFilter": {
+          "type": "common_grams",
+          "common_words": [
+              "lžička",
+              "ml",
+              "ks"
+            ]
+        },
+        "wordDelimiterFilter": {
+          "type": "word_delimiter",
+          "preserve_original": true
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "fields": {
+          "dictionary": {
+            "type": "text",
+            "analyzer": "czechDictionary"
+          },
+          "edgeNgram": {
+            "type": "text",
+            "analyzer": "customNgram"
+          },
+          "synonym": {
+            "type": "text",
+            "analyzer": "synonymAnalyzer"
+          },
+          "delimiter": {
+            "type": "text",
+            "analyzer": "wordDelimiterAnalyzer"
+          },
+          "commonGrams": {
+            "type": "text",
+            "analyzer": "commonGramsAnalyzer"
+          }
+        }
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "czechDictionary"
+      },
+      "rating": {
+        "type": "float"
+      },
+      "ingredients": {
+        "type": "text",
+        "analyzer": "lowercaseAnalyzer",
+        "fielddata": true
+      },
+      "comments": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "text",
+            "analyzer": "czechDictionary"
+          },
+          "comment": {
+            "type": "text",
+            "analyzer": "czechDictionary"
+          }
+        }
+      },
+      "created": {
+        "type": "date",
+        "format": [
+          "Y-m-d"
+        ]
+      },
+      "cookTime": {
+        "type": "integer"
+      }
+    }
+  }
+}
+
+GET workshop_new/_settings
+
+GET workshop_new/_mapping
+
+POST workshop_2/_doc
+{
+  "title": "Medovníkové kuličky",
+  "description": [
+    "Oloupanou cuketu bez semen a mrkev nastrouháme na menším slzičkovém struhadle, ořechy nasekáme na hrubo, omyté ovoce nakrájíme na menší kousky, šlehačku ušleháme a želatinu namočíme do studené vody. Želé, agar, želatina - jak pracovat s různými druhy zahušťovadel"
+  ],
+  "rating": 3.6,
+  "ingredients": [
+    "hladká mouka",
+    "brambor"
+  ],
+  "comments": [
+    {
+      "author": "Jarka",
+      "comment": "Super"
+    },
+    {
+      "author": "Ferda",
+      "comment": "Nic moc"
+    }
+  ],
+  "created": "2012-12-12",
+  "cookTime": 90
+}
+
+GET workshop_new/_mapping
+
+GET workshop_new/_settings
+
+GET workshop_new/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "ingredients": {
+              "value": "cukr"
+            }
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "title.dictionary": {
+                    "query": "Ořechoví nafoukánci těsto",
+                    "analyzer": "czechDictionary",
+                    "operator": "or",
+                    "minimum_should_match": "60%",
+                    "boost": 1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "wildcard": {
+            "ingredients": {
+              "value": "tu*"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET workshop_new/_search
+
+GET workshop_new/_analyze
+{
+  "text": [
+    "nafoukánci",
+    "nafoukanci"
+    ],
+    "analyzer": "czechDictionary"
+}
+
+
+GET workshop_new/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "bool": {
+            "must": [
+              {
+                "multi_match": {
+                  "query": "medovník",
+                  "fields": [
+                    "title.dictionary^3",
+                    "title.commonGrams",
+                    "title.delimiter",
+                    "title.edgeNgram",
+                    "title.synonym",
+                    "description"
+                  ],
+                  "analyzer": "czechDictionary",
+                  "type": "best_fields",
+                  "boost": 1
+                }
+              }
+            ]
+          }
+        },
+        {
+          "bool": {
+            "must": [
+              {
+                "multi_match": {
+                  "query": "medovník",
+                  "fields": [
+                    "title.dictionary^3",
+                    "title.commonGrams",
+                    "title.delimiter",
+                    "title.edgeNgram",
+                    "title.synonym",
+                    "description"
+                  ],
+                  "analyzer": "lowercaseAnalyzer",
+                  "type": "best_fields",
+                  "boost": 2
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET workshop_new/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+          {
+            "multi_match": {
+              "query": "medovník",
+              "fields": [
+                "title.dictionary^3",
+                "title.commonGrams",
+                "title.delimiter",
+                "title.edgeNgram",
+                "title.synonym",
+                "description"
+              ],
+              "analyzer": "czechDictionary",
+              "type": "best_fields",
+              "fuzziness": 2,
+              "boost": 1
+            }
+          },
+          {
+            "multi_match": {
+              "query": "medovník",
+              "fields": [
+                "title.dictionary^3",
+                "title.commonGrams",
+                "title.delimiter",
+                "title.edgeNgram",
+                "title.synonym",
+                "description"
+              ],
+              "analyzer": "lowercaseAnalyzer",
+              "type": "best_fields",
+              "boost": 2
+            }
+          }
+      ]
+    }
+  }
+}
+
+
+GET workshop_new/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "cookTime": {
+              "gte": 60,
+              "lte": 120
+            }
+          }
+        },
+        {
+          "term": {
+            "comments.author": {
+              "value": "jarka"
+            }
+          }
+        },
+        {
+          "term": {
+            "comments.comment": {
+              "value": "nic"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET workshop_2/_search
+{
+  "size": 0,
+  "aggs": {
+    "ingredients": {
+      "terms": {
+        "field": "ingredients",
+        "size": 10
+      }
+    },
+    "under60minutes": {
+      "range": {
+        "field": "cookTime",
+        "ranges": [
+          {
+            "key": "90",
+            "to": 90.001
+          }
+        ]
+      }
+    }
+  }
+}
+
+
+
+GET workshop_new/_search
+{
+  "size": 0,
+  "aggs": {
+    "times": {
+      "histogram": {
+        "field": "cookTime",
+        "interval": 30
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
