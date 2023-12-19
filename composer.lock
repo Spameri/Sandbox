@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f0c5fe92ded223474c8ba640fc2f9df",
+    "content-hash": "53ffbf4de83d1e7f2ca9de29b6e08ac9",
     "packages": [
         {
             "name": "dibi/dibi",
@@ -1914,16 +1914,16 @@
         },
         {
             "name": "spameri/elastic-query",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spameri/ElasticQuery.git",
-                "reference": "0d5483bdd33a974c1ab4ab2b64ddae1bcca29ddc"
+                "reference": "e03dbaaabbb4d6cdf14600e4d98c665a288f83f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/0d5483bdd33a974c1ab4ab2b64ddae1bcca29ddc",
-                "reference": "0d5483bdd33a974c1ab4ab2b64ddae1bcca29ddc",
+                "url": "https://api.github.com/repos/Spameri/ElasticQuery/zipball/e03dbaaabbb4d6cdf14600e4d98c665a288f83f8",
+                "reference": "e03dbaaabbb4d6cdf14600e4d98c665a288f83f8",
                 "shasum": ""
             },
             "require": {
@@ -1954,9 +1954,9 @@
             "description": "Objects instead of arrays for querying to ElasticSearch.",
             "support": {
                 "issues": "https://github.com/Spameri/ElasticQuery/issues",
-                "source": "https://github.com/Spameri/ElasticQuery/tree/v1.0.0"
+                "source": "https://github.com/Spameri/ElasticQuery/tree/v1.0.1"
             },
-            "time": "2022-02-23T15:22:48+00:00"
+            "time": "2023-09-20T14:56:04+00:00"
         },
         {
             "name": "symfony/console",
