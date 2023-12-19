@@ -51,3 +51,5 @@ includes:
 	- ../WorkshopThreeModule/config/workshopThree.neon
 
 	- ../WorkshopFourModule/config/workshopFour.neon
+
+	- ../WorkshopFiveModule/config/workshopFive.neon
