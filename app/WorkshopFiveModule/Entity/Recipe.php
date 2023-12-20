@@ -39,6 +39,7 @@ class Recipe
     public function entityVariables(): array
     {
         $vars = \get_object_vars($this);
+        unset($vars[self::ID]);
         $vars[self::CREATED] = $this->created->format(
             \Spameri\Elastic\Entity\Property\DateTime::FORMAT
         );
