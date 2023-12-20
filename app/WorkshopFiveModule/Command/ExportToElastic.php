@@ -73,7 +73,8 @@ class ExportToElastic extends \Symfony\Component\Console\Command\Command
                 $newIndexName,
                 new \Spameri\ElasticQuery\Document\Body\Plain(
                     $recipe->entityVariables()
-                )
+                ),
+                id: (string) $recipe->id,
             );
 
             $this->clientProvider->client()->index($recipeDocument->toArray());
