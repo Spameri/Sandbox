@@ -1546,8 +1546,101 @@ GET workshop_new/_search
 }
 
 
+GET recipe/_search
+{
+  "size": 20,
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "multi_match": {
+            "query": "salám",
+            "type": "best_fields",
+            "fields": [
+              "title.czechDictionary",
+              "title.commonGrams",
+              "title.wordDelimiter",
+              "title.synonym"
+            ],
+            "boost": 5,
+            "operator": "OR",
+            "fuzziness": "0",
+            "analyzer": "czechDictionary",
+            "minimum_should_match": 1
+          }
+        },
+        {
+          "multi_match": {
+            "query": "salám",
+            "type": "best_fields",
+            "fields": [
+              "title.czechDictionary"
+            ],
+            "boost": 1,
+            "operator": "OR",
+            "fuzziness": "AUTO",
+            "analyzer": "czechDictionary",
+            "minimum_should_match": 1
+          }
+        }
+      ]
+    }
+  }
+}
 
 
+GET recipe/_search
+{
+  "size": 0,
+  "aggs": {
+    "snidane": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "tags": {
+                  "value": "snidane"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "aggs": {
+        "ings": {
+          "terms": {
+            "field": "ingredients",
+            "size": 10
+          }
+        }
+      }
+    },
+    "obedy": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "tags": {
+                  "value": "polevka"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "aggs": {
+        "ings": {
+          "terms": {
+            "field": "ingredients",
+            "size": 10
+          }
+        }
+      }
+    }
+  }
+}
 
 
 
