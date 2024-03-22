@@ -1,0 +1,34 @@
+services:
+	workshopThree.exportToElasticCommand:
+		class: App\WorkshopThreeModule\Command\ExportToElastic
+		tags:
+			- kdyby.console.command
+			- console.command
+
+	workshopThree.exportToElastic:
+		class: App\WorkshopThreeModule\Model\ExportToElastic
+		arguments:
+			logDir: log
+
+	workshopThree.dataImport:
+		class: App\WorkshopThreeModule\Model\ExportToElastic\DataImport
+
+	workshopThree.dataProvider:
+		class: App\WorkshopThreeModule\Model\ExportToElastic\DataProvider
+
+	workshopThree.prepareImportData:
+		class: App\WorkshopThreeModule\Model\ExportToElastic\PrepareImportData
+
+	workshopThree.workshopProductConfig:
+		class: App\WorkshopThreeModule\Entity\WorkshopProductConfig
+		arguments:
+			indexName: three_workshop_product
+
+	workshopThree.workshopProductFactory:
+		class: App\WorkshopProductThreeModule\Factory\WorkshopProductFactory
+
+	workshopThree.workshopProductCollectionFactory:
+		class: App\WorkshopThreeModule\Factory\WorkshopProductCollectionFactory
+
+	workshopThree.workshopProductService:
+		class: App\WorkshopThreeModule\Model\WorkshopProductService

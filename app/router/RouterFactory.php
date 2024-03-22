@@ -2,23 +2,16 @@
 
 namespace App;
 
-use Nette;
-use Nette\Application\Routers\Route;
-use Nette\Application\Routers\RouteList;
-
 
 final class RouterFactory
 {
-	use Nette\StaticClass;
+	use \Nette\StaticClass;
 
-	/**
-	 * @return Nette\Application\IRouter
-	 */
-	public static function createRouter()
+	public static function createRouter(): \Nette\Routing\Router
 	{
-		$router = new RouteList;
-		$router[] = new Route('<presenter>/<action>', 'Homepage:default');
-		$router[] = new Route('<module>/<presenter>/<action>', 'Product:ProductList:default');
+		$router = new \Nette\Application\Routers\RouteList;
+		$router[] = new \Nette\Application\Routers\Route('<presenter>/<action>', 'Homepage:default');
+		$router[] = new \Nette\Application\Routers\Route('<module>/<presenter>/<action>', 'Product:ProductList:default');
 		return $router;
 	}
 

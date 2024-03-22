@@ -27,7 +27,7 @@ class StepSixPresenter extends \App\Presenter\BasePresenter
 		try {
 			$products = $this->productService->getAllBy($query);
 
-		} catch (\Spameri\Elastic\Exception\ElasticSearchException $exception) {
+		} catch (\Spameri\Elastic\Exception\AbstractElasticSearchException $exception) {
 			$products = [];
 		}
 
@@ -53,7 +53,6 @@ class StepSixPresenter extends \App\Presenter\BasePresenter
 
 		$form->onSuccess[] = function () use ($form) {
 			$this->redirect(
-				301,
 				':Product:StepSix:default',
 				[
 					'queryString' => $form->getValues()->queryString,
@@ -79,9 +78,10 @@ class StepSixPresenter extends \App\Presenter\BasePresenter
 				],
 				$queryString,
 				3,
-				\Spameri\ElasticQuery\Query\Match\MultiMatchType::BEST_FIELDS,
-				\Spameri\ElasticQuery\Query\Match\Operator::OR,
 				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO),
+				\Spameri\ElasticQuery\Query\Match\MultiMatchType::BEST_FIELDS,
+				NULL,
+				\Spameri\ElasticQuery\Query\Match\Operator::OR,
 				'czechDictionary'
 			)
 		);

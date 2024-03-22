@@ -1,7 +1,7 @@
 extensions:
 	spameriElasticSearch: Spameri\Elastic\DI\SpameriElasticSearchExtension
 	console: Kdyby\Console\DI\ConsoleExtension
-	monolog: Kdyby\Monolog\DI\MonologExtension
+#	monolog: Kdyby\Monolog\DI\MonologExtension
 	dibi: Dibi\Bridges\Nette\DibiExtension22
 
 dibi:
@@ -14,7 +14,6 @@ dibi:
 
 spameriElasticSearch:
 	debug: true
-	entities:
 
 parameters:
 
@@ -32,7 +31,25 @@ session:
 services:
 	router: App\RouterFactory::createRouter
 
+	consoleOutput:
+		class: \Symfony\Component\Console\Output\ConsoleOutput
+
+#	Uncomment this if you want to log export to elasctic
+#	- Spameri\Elastic\Import\Run\LoggerHandler(@monolog.logger)
+
+
 includes:
+	- ../ProductModule/Config/ProductModule.neon
+
 	- ../ProductModule/Config/Product.neon
 	- ../ProductModule/Config/SimpleProduct.neon
-	- ../ProductModule/Config/ProductModule.neon
+	- ../ProductModule/Config/WorkshopProduct.neon
+
+	- ../WorkshopTwoModule/Config/WorkshopTwoModule.neon
+	- ../WorkshopTwoModule/Config/WorkshopProduct.neon
+
+	- ../WorkshopThreeModule/config/workshopThree.neon
+
+	- ../WorkshopFourModule/config/workshopFour.neon
+
+	- ../WorkshopFiveModule/config/workshopFive.neon
