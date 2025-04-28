@@ -1,0 +1,10 @@
+services:
+	workshopFive.command:
+		class: App\WorkshopFiveModule\Command\ExportToElastic
+		tags:
+			- kdyby.console.command
+			- console.command
+
+	- App\WorkshopFiveModule\Entity\RecipeSettings('recipe')
+	- App\WorkshopFiveModule\Entity\ArticleSettings('article')
+

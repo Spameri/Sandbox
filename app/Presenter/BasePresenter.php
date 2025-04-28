@@ -2,21 +2,11 @@
 
 namespace App\Presenter;
 
-use Nette;
-
-
 /**
  * Base presenter for all application presenters.
+ * @method \Nette\Application\UI\ITemplate|\Nette\Bridges\ApplicationLatte\Template getTemplate
  */
-abstract class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {
-
-	/**
-	 * @return Nette\Application\UI\ITemplate|Nette\Bridges\ApplicationLatte\Template
-	 */
-	public function getTemplate()
-	{
-		return parent::getTemplate();
-	}
 
 }

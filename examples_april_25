@@ -1,0 +1,576 @@
+
+GET _cat/indices
+
+
+GET product/_search
+{
+  "query": {
+
+  }
+}
+
+POST product/_doc/J5eCe5YBgmqCj4qR5o4E
+{
+  "title": "Notebook asus",
+  "price": 1000
+}
+
+
+GET product/_doc/J5eCe5YBgmqCj4qR5o4E
+
+
+
+POST product/_doc/J5eCe5YBgmqCj4qR5o4E
+{
+  "price": 2000
+}
+
+
+
+POST product/_update/J5eCe5YBgmqCj4qR5o4E
+{
+  "doc": {
+    "price": 2000
+  }
+}
+
+
+DELETE product/_doc/J5eCe5YBgmqCj4qR5o4E
+
+
+GET product/_settings
+
+
+GET product/_mapping
+
+
+GET _analyze
+{
+  "tokenizer": "standard",
+  "filter": [
+    "asciifolding"
+  ],
+  "text": [
+    "quickly, and PlayStation PUŠKOHLED Puškohled puskohled VALIANT LYNX 3-9X40 AOSIR MIL-DOT and Bagr"
+  ]
+}
+
+GET _analyze
+{
+  "tokenizer": "standard",
+  "filter": [
+    {
+      "type": "common_grams",
+      "common_words": ["is", "the", "and"]
+    }
+  ],
+  "text": [
+    "quickly, and PlayStation PUŠKOHLED Puškohled puskohled VALIANT LYNX 3-9X40 AOSIR MIL-DOT and Bagr"
+  ]
+}
+
+
+
+GET _analyze
+{
+  "tokenizer": "standard",
+  "filter": [
+    "lowercase",
+    {
+      "type": "hunspell",
+      "locale": "cs_CZ",
+      "dictionary": ["paystation => PlayStation"]
+    }
+  ],
+  "text": [
+    "quickly, and PayStation PUŠKOHLED Puškohled puskohled VALIANT LYNX 3-9X40 AOSIR MIL-DOT and Bagr"
+  ]
+}
+
+
+GET _analyze
+{
+  "tokenizer": "standard",
+  "filter": [
+    "word_delimiter"
+  ],
+  "text": [
+    "quickly, and PlayStation PUŠKOHLED Puškohled puskohled VALIANT LYNX 3-9X40 AOSIR MIL-DOT and Bagr"
+  ]
+}
+
+
+GET _analyze
+{
+  "tokenizer": "standard",
+  "filter": [
+    "unique",
+    "asciifolding",
+    "lowercase",
+    {
+      "type": "synonym",
+      "synonyms": [ "playstation => play station" ]
+    },
+
+    {
+      "type": "common_grams",
+      "common_words": [
+          "pro"
+        ]
+    },
+
+    "asciifolding",
+    "lowercase",
+
+    {
+      "type": "hunspell",
+      "locale": "cs_CZ",
+      "dictionary": ["pekla => péct"]
+    },
+
+   {
+    "type": "stop",
+    "stopwords": [
+        "_czech_",
+        "že"
+      ]
+    },
+    "asciifolding",
+    "lowercase",
+    "unique"
+  ],
+  "text": [
+    "windows pro"
+  ]
+}
+
+
+
+GET product/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": "tričko"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET product/_analyze
+{
+  "analyzer": "czechDictionary",
+  "text": [
+    "tričko",
+    "mezera",
+    "TRIČKO GANT ORIGINAL V-NECK SS T-SHIRT"
+  ]
+}
+
+GET product/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": "tričko"
+          }
+        },
+        {
+          "match": {
+            "title": {
+              "query": "tričko",
+              "boost": 1
+            }
+          }
+        },
+        {
+          "term": {
+            "title": {
+              "value": "tričko"
+            }
+          }
+        },
+        {
+          "wildcard": {
+            "title": {
+              "value": "tri*"
+            }
+          }
+        },
+        {
+          "fuzzy": {
+            "title": {
+              "value": "tričko",
+              "fuzziness": 2
+            }
+          }
+        },
+        {
+          "match_phrase": {
+            "title": "tričko gant"
+          }
+        },
+        {
+          "multi_match": {
+            "query": "tričko",
+            "fields": [
+              "title",
+              "title.czechDictionary^3",
+              "title.edgeNgram",
+              "title.hungarianDictionary",
+              "description",
+              "description.keyword"
+            ],
+            "analyzer": "czechDictionary",
+            "fuzziness": 1,
+            "type": "best_fields",
+            "operator": "or",
+            "boost": 2
+          }
+        },
+        {
+          "multi_match": {
+            "query": "tričko",
+            "fields": [
+              "title",
+              "title.czechDictionary^3",
+              "title.edgeNgram",
+              "title.hungarianDictionary",
+              "description",
+              "description.keyword"
+            ],
+            "analyzer": "czechDictionary",
+            "fuzziness": 1,
+            "type": "cross_fields",
+            "operator": "or",
+            "boost": 2
+          }
+        },
+        {
+          "range": {
+            "price": {
+              "gte": 1000,
+              "lte": 2000
+            }
+          }
+        },
+        {
+          "exists": {
+            "field": "price",
+            "boost": 2
+          }
+        },
+        {
+          "terms": {
+            "title": [
+              "tričko",
+              "gant"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+PUT mega_product
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "czechDictionary": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStopWords",
+            "dictionary_CZ",
+            "unique",
+            "asciifolding"
+          ]
+        }
+      },
+      "filter": {
+        "dictionary_CZ": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        },
+        "customEdgeNgram": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        },
+        "czechStopWords": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_"
+          ]
+        }
+      }
+    }
+
+  },
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "fields": {
+          "dictionary": {
+            "type": "text",
+            "analyzer": "czechDictionary"
+          },
+          "edgeNgram": {
+            "type": "text"
+          },
+          "synonym": {
+            "type": "text"
+          }
+        }
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "czechDictionary"
+      },
+      "price": {
+        "type": "integer"
+      }
+    }
+  }
+}
+
+
+GET mega_product/_mapping
+
+
+POST mega_product/_doc
+{
+  "price": 100.2
+}
+
+
+GET mega_product/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "price": {
+              "value": 100
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+GET product/_search
+{
+  "sort": [
+    {
+      "category": {
+        "order": "desc"
+      }
+    },
+    {
+      "_score": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+
+
+GET product/_search
+{
+  "size": 0,
+  "aggs": {
+    "price": {
+      "terms": {
+        "field": "category",
+        "size": 1000
+      }
+    },
+      "priceMin": {
+        "min": {
+          "field": "price"
+        }
+      },
+      "priceMax": {
+        "max": {
+          "field": "price"
+        }
+      }
+  }
+}
+
+
+
+
+
+
+
+
+GET _search
+{
+  "index": "stoitem",
+  "type": "_doc",
+  "body": {
+    "query": {
+      "function_score": {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "multi_match": {
+                  "type": "most_fields",
+                  "operator": "and",
+                  "query": "notebook dell",
+                  "fields": [
+                    "SisStiNameSearch^30",
+                    "SisStiNameSearch.cestina^25",
+                    "SisStiName^30",
+                    "SisStiSLName^20",
+                    "SisStiCodeLike.raw^20",
+                    "SisStiPartNoLike.raw^20",
+                    "SisStiName.cestina^15",
+                    "SisStiNameWeb^10",
+                    "SisStiNameWeb.cestina^9",
+                    "SisStiNameGen^9",
+                    "SisStiNameGen.cestina^8",
+                    "SisStiKeywords^8",
+                    "SisStiKeywords.cestina^8",
+                    "SisStiManName^6",
+                    "SisStiSpecType^5",
+                    "SisStiCodeLike.cestina_suggest",
+                    "SisStiPartNoLike.cestina_suggest",
+                    "SisStiStoCode1",
+                    "SisStiStoCode2",
+                    "SisStiStoCode3",
+                    "SisStiStoCode4",
+                    "SisStiStoCode5",
+                    "SisStiStoCode6"
+                  ]
+                }
+              }
+            ],
+            "should": [
+              {
+                "match": {
+                  "SisStiSpecType": {
+                    "query": "notebook dell",
+                    "operator": "or"
+                  }
+                }
+              }
+            ],
+            "filter": {
+              "bool": {
+                "must_not": [
+                  {
+                    "term": {
+                      "StiHideIList": "100mega"
+                    }
+                  },
+                  {
+                    "term": {
+                      "SisHideManufacturerComId": -1
+                    }
+                  },
+                  {
+                    "terms": {
+                      "SisHideComDiscGroup": [
+                        -1
+                      ]
+                    }
+                  }
+                ],
+                "must": [
+                  {
+                    "range": {
+                      "SisStiPrice2": {
+                        "gte": 0,
+                        "lte": 99999999
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "SisComId": 0
+                    }
+                  },
+                  {
+                    "term": {
+                      "SisStiHideI": 0
+                    }
+                  },
+                  {
+                    "term": {
+                      "SisStiHide": 0
+                    }
+                  },
+                  {
+                    "term": {
+                      "SisNotSearchable": 0
+                    }
+                  },
+                  {
+                    "terms": {
+                      "SisComDiscGroup": [
+                        0
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "script_score": {
+          "script": {
+            "lang": "painless",
+            "inline": "def xSisStiWAvgNew = doc['SisStiWAvgNew'].value; def xSisStiRank = doc['SisStiRank'].value; if (doc['SisStiRank'].value == 10) { xSisStiRank = 99;} else if (doc['SisStiRank'].value == 5) { xSisStiRank = 30;} else if (doc['SisStiRank'].value == 3) { xSisStiRank = 3;} else if (doc['SisStiRank'].value == 1) { xSisStiRank = 1;} def RankQty = 1; def RankExtra = 1; def RankStatusSleva = 1; def RankStatusNovinka = 1; if (doc['SisStiWAvg'].value == 99999999.99 && doc['SisQtyFree'].value > 0) { RankExtra = 20;} if ((doc['SisStiStatus'].value == 24 || doc['SisStiStatus'].value == 27) && doc['SisQtyFree'].value > 0) { RankStatusSleva = 3;} if (doc['SisStiStatus'].value == 1 && doc['SisQtyFree'].value > 0) { RankStatusNovinka = 2;} if (doc['SisQtyFree'].value > 0) { RankQty = 5;} return ((xSisStiRank+RankStatusSleva+RankStatusNovinka+RankExtra+RankQty+xSisStiWAvgNew)*_score);"
+          }
+        }
+      }
+    },
+    "sort": [
+      "_score"
+    ],
+    "aggs": {
+      "max_price": {
+        "max": {
+          "field": "SisStiPrice2"
+        }
+      },
+      "min_price": {
+        "min": {
+          "field": "SisStiPrice2"
+        }
+      },
+      "categorie": {
+        "terms": {
+          "field": "SisTree",
+          "size": 10
+        }
+      },
+      "manName": {
+        "terms": {
+          "field": "SisStiManName"
+        }
+      }
+    }
+  },
+  "size": 20,
+  "from": 0
+}

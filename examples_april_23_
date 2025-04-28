@@ -1,0 +1,884 @@
+GET /
+
+GET _cat/indices
+
+GET _search
+
+GET product/_search
+
+GET product/_doc/12346579
+
+POST product/_doc
+{
+  "name": "TENISKY GANT KILLOX",
+  "material": [
+    "BAVLNA 100 %"
+  ]
+}
+
+POST product/_doc/12346579
+{
+  "name": "TENISKY GANT KILLOX",
+  "databaseId": 123,
+  "hasImage": 1,
+  "material": [
+    "BAVLNA 60 %"
+  ]
+
+}
+
+GET product/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "databaseId": {
+              "value": 123
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET product/_settings
+
+GET product/_mapping
+
+
+GET _alias
+
+
+GET product_production/_search
+
+POST product_2023_04_24/_doc/12346579
+{
+  "name": "TENISKY GANT KILLOX",
+  "databaseId": 123,
+  "hasImage": 1,
+  "material": [
+    "BAVLNA 60 %"
+  ]
+}
+
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "product_2023_04_24",
+        "alias": "product_production"
+      }
+    }
+  ]
+}
+
+
+POST product_2023_04_25/_doc/12346579
+{
+  "name": "TENISKY GANT KILLOX",
+  "databaseId": 123,
+  "hasImage": true,
+  "material": [
+    "BAVLNA 60 %"
+  ]
+}
+
+POST /_aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "product_2023_04_25",
+        "alias": "product_production"
+      }
+    },
+    {
+      "remove": {
+        "index": "product_2023_04_24",
+        "alias": "product_production"
+      }
+    }
+  ]
+}
+
+DELETE product_production/_doc/12346579
+
+
+GET _analyze
+{
+  "text": [
+    "TENISKY TENISKY TENISKY GANT KILLOX.",
+    "POLOKOŠILE GANT SUNFADED PIQUE SS RUGGER 22",
+    "Pánské krátkorukávové triko s límečkem. Rovný střih, nápis brandu na hrudi. Materiálové složení je tvořeno bavlněným žerzejem prémiové kvality, který je příjemně měkký na omak a vysoce komfortní v průběhu nošení. Jemně porézní pique struktura je zárukou dokonalé prodyšnosti a lehké pružnosti. Šisovaného vzhledu bylo docíleno speciálním způsobem barvení, díky němuž je každý artikl jedinečný originál a jenž umocňuje letní, ležérní vzhled volnočasového stylingu."
+  ],
+  "tokenizer": "standard",
+  "filter": [
+    {
+      "type": "stop",
+      "stopwords": [
+        "_czech_",
+        "tenisky"
+      ]
+    },
+    {
+      "type": "hunspell",
+      "locale": "cs_CZ"
+    },
+    "asciifolding",
+    "lowercase",
+    {
+      "type": "synonym",
+      "synonyms": [ "gant => vermont,gant" ]
+    },
+    "unique"
+  ]
+}
+
+GET _analyze
+{
+  "text": [
+    "TENISKY TENISKY TENISKY GANT KILLOX.",
+    "POLOKOŠILE GANT SUNFADED PIQUE SS RUGGER 22",
+    "Pánské krátkorukávové triko s límečkem. Rovný střih, nápis brandu na hrudi. Materiálové složení je tvořeno bavlněným žerzejem prémiové kvality, který je příjemně měkký na omak a vysoce komfortní v průběhu nošení. Jemně porézní pique struktura je zárukou dokonalé prodyšnosti a lehké pružnosti. Šisovaného vzhledu bylo docíleno speciálním způsobem barvení, díky němuž je každý artikl jedinečný originál a jenž umocňuje letní, ležérní vzhled volnočasového stylingu."
+  ],
+  "tokenizer": "standard",
+  "filter": [
+    {
+      "type": "hunspell",
+      "locale": "cs_CZ"
+    }
+  ]
+}
+
+
+
+POST product/_close
+POST product/_open
+
+GET _analyze
+{
+  "text": [
+    "speciální"
+  ],
+  "tokenizer": "standard",
+  "filter": [
+    "stop",
+    "asciifolding",
+    {
+      "type": "common_grams",
+      "common_words": ["SUN"]
+    },
+    {
+      "type": "edge_ngram",
+      "min_gram": 2,
+      "max_gram": 6
+    }
+  ]
+}
+
+
+PUT product_analyzer
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "czechStopAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStopFilter",
+            "asciifolding"
+          ]
+        },
+        "czechDictionaryAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStopFilter",
+            "czechDictionaryFilter"
+          ]
+        },
+        "commonGramsAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "czechStopFilter",
+            "commonGramsFilter",
+            "unique"
+          ]
+        },
+        "wordDelimiterAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "czechStopFilter",
+            "word_delimiter",
+            "unique"
+          ]
+        },
+        "synonymAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "czechStopFilter",
+            "czechSynonymFilter",
+            "asciifolding",
+            "lowercase",
+            "unique"
+          ]
+        },
+        "edgeNgramAnalyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "czechStopFilter",
+            "edgeNgramFilter",
+            "unique"
+          ]
+        }
+      },
+      "filter": {
+        "czechStopFilter": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_",
+            "protože"
+          ]
+        },
+        "czechDictionaryFilter": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        },
+        "commonGramsFilter": {
+          "type": "common_grams",
+          "common_words": [
+            "gant",
+            "vermon"
+          ]
+        },
+        "czechSynonymFilter": {
+          "type": "synonym",
+          "synonyms": [
+            "gant => vermont,gant",
+            "kosile => triko",
+            "košile => tričko",
+            "tenisky => kroksky"
+          ]
+        },
+        "edgeNgramFilter": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "tags": {
+        "type": "keyword"
+      },
+      "size": {
+        "type": "keyword"
+      },
+      "category": {
+        "type": "keyword"
+      },
+      "image": {
+        "type": "keyword"
+      },
+      "published": {
+        "type": "date"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "czechDictionaryAnalyzer"
+      },
+      "price": {
+        "type": "float"
+      },
+      "color": {
+        "type": "keyword"
+      },
+      "stock": {
+        "type": "long"
+      },
+      "title": {
+        "type": "text",
+        "fields": {
+          "dictionary": {
+            "type": "text",
+            "analyzer": "czechDictionaryAnalyzer"
+          },
+          "edgeNgram": {
+            "type": "text",
+            "analyzer": "edgeNgramAnalyzer"
+          },
+          "wordJoin": {
+            "type": "text",
+            "analyzer": "commonGramsAnalyzer"
+          },
+          "wordDelimiter": {
+            "type": "text",
+            "analyzer": "wordDelimiterAnalyzer"
+          },
+          "synonym": {
+            "type": "text",
+            "analyzer": "synonymAnalyzer"
+          }
+        }
+      }
+    }
+  }
+}
+
+DELETE product_analyzer
+
+GET product_analyzer/_search
+
+GET product_analyzer/_settings
+
+GET product_analyzer/_analyze
+{
+  "text": [
+    "BUNDA GANT CROPPED BOUCLE JACKET"
+  ],
+  "analyzer": "czechDictionaryAnalyzer"
+}
+
+POST product_analyzer/_doc
+{
+  "title": "PLAVKY GANT CF RETRO SHIELD SWIM SHORTS",
+  "databaseId": 456,
+  "hasImage": true,
+  "color": "blue",
+  "price": 1000,
+  "stock": 0,
+  "material": [
+    "plast 94 %"
+  ],
+  "size": [
+    "XXL",
+    "XL",
+    "S"
+  ],
+  "tags": [
+    "červená",
+    "zelená",
+    "boty",
+    "akce"
+  ],
+  "description": "Pánské šortky na koupání s délkou nohavic do půli stehen. Klasická výška sedu, kontrastní provedení pružného, variabilně stahovatelného pasu na tkaničku, jenž je v jedinečném souladu se silikonovým brandingem nad spodním lemem levé nohavice. Dvě boční šikmé kapsy, zadní otvory, které zamezují naplnění plavek vzduchem při skoku do vody, podšívka ze síťoviny. Kvalitní materiálové složení je odolné vůči prodření, stálobarevné, rychloschnoucí a na omak příjemně měkké. Pohodlný artikl, bez kterého se parné letní dny u vody neobejdou.",
+  "published": "2023-03-24",
+  "image": "https://eshop-cdn.vermont.eu/colored_products/50000/51000/51241/webp/product-detail-small2007000024041_1B9a5Lzpjd.webp"
+}
+
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "hasImage": {
+              "value": false
+            }
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "term": {
+                  "size": {
+                    "value": "XXL",
+                    "boost": 2
+                  }
+                }
+              },
+              {
+                "term": {
+                  "size": {
+                    "value": "XL"
+                  }
+                }
+              },
+              {
+                "terms": {
+                  "size": [
+                    "XL",
+                    "XXL"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "hasImage": {
+              "value": false
+            }
+          }
+        }
+      ],
+      "should": [
+        {
+          "term": {
+            "size": {
+              "value": "M"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "wildcard": {
+            "title": {
+              "value": "*cf*"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_phrase": {
+            "description": {
+              "query": "Pánské šortky",
+              "analyzer": "czechDictionaryAnalyzer"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "fuzzy": {
+            "title": {
+              "value": "plavky",
+              "fuzziness": "auto"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": {
+              "query": "PLAVKY GANT tričko",
+              "analyzer": "czechDictionaryAnalyzer",
+              "fuzziness": 1,
+              "operator": "or",
+              "minimum_should_match": "60%",
+              "boost": 5
+            }
+          }
+        }
+      ]
+    }
+  },
+  "size": 20,
+  "from": 20
+}
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must_not": [
+        {
+          "term": {
+            "price": {
+              "value": 0
+            }
+          }
+        }
+      ],
+      "must": [
+        {
+          "term": {
+            "hasImage": {
+              "value": true
+            }
+          }
+        },
+        {
+          "term": {
+            "tags": {
+              "value": "boty"
+            }
+          }
+        },
+        {
+          "range": {
+            "stock": {
+              "gte": 1
+            }
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "multi_match": {
+                  "query": "plavky",
+                  "fields": [
+                    "title.dictionary",
+                    "title.edgeNgram",
+                    "title.synonym",
+                    "title.wordDelimiter",
+                    "title.wordJoin"
+                  ],
+                  "analyzer": "czechDictionaryAnalyzer",
+                  "boost": 10,
+                  "type": "best_fields"
+                }
+              },
+              {
+                "match": {
+                  "description": "plavky"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "color": {
+      "terms": {
+        "field": "color",
+        "size": 10
+      }
+    }
+  }
+}
+
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "hasImage": {
+              "value": true
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "color": {
+      "terms": {
+        "field": "color",
+        "size": 10
+      }
+    },
+    "prices": {
+      "histogram": {
+        "field": "price",
+        "interval": 100000
+      }
+    },
+    "price_fixed": {
+      "range": {
+        "field": "price",
+        "ranges": [
+          { "to": 100.0 },
+          { "from": 100.0, "to": 2500.0 },
+          { "from": 2500.0 }
+        ]
+      }
+    },
+    "stock_max": {
+      "max": {
+        "field": "stock"
+      }
+    },
+    "stock_min": {
+      "min": {
+        "field": "stock"
+      }
+    }
+  },
+  "size": 0
+}
+
+
+
+GET product_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "hasImage": {
+              "value": true
+            }
+          }
+        }
+      ]
+    }
+  },
+  "aggs": {
+    "color": {
+      "terms": {
+        "field": "color",
+        "size": 10
+      }
+    },
+    "price_fixed": {
+      "filter": {
+        "term": {
+          "color": "red"
+        }
+      },
+      "aggs": {
+        "price_inner": {
+           "range": {
+            "field": "price",
+            "ranges": [
+              { "to": 100.0 },
+              { "from": 100.0, "to": 2500.0 },
+              { "from": 2500.0 }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "size": 0
+}
+
+
+
+
+POST product_nested/_doc
+{
+  "title": "PLAVKY GANT CF RETRO SHIELD SWIM SHORTS",
+  "items": [
+    {
+      "color": "red",
+      "size": "M"
+    },
+    {
+      "color": "red",
+      "size": "XL"
+    },
+    {
+      "color": "red",
+      "size": "L"
+    },
+    {
+      "color": "green",
+      "size": "XL"
+    },
+    {
+      "color": "green",
+      "size": "L"
+    },
+    {
+      "color": "green",
+      "size": "S"
+    }
+  ]
+}
+
+DELETE product_nested
+
+PUT product_nested
+{
+  "mappings": {
+    "properties": {
+      "items": {
+        "type": "nested"
+      }
+    }
+  }
+}
+
+
+GET product_nested/_search
+{
+  "query": {
+    "nested": {
+      "path": "items",
+      "query": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "items.color": {
+                  "value": "red"
+                }
+              }
+            },
+             {
+              "term": {
+                "items.size": {
+                  "value": "s"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+POST product_not_nested/_doc
+{
+  "title": "PLAVKY GANT CF RETRO SHIELD SWIM SHORTS",
+  "items": [
+    {
+      "color": "red",
+      "size": "M"
+    },
+    {
+      "color": "red",
+      "size": "XL"
+    },
+    {
+      "color": "red",
+      "size": "L"
+    },
+    {
+      "color": "green",
+      "size": "XL"
+    },
+    {
+      "color": "green",
+      "size": "L"
+    },
+    {
+      "color": "green",
+      "size": "S"
+    }
+  ]
+}
+
+GET product_not_nested/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "items.color": {
+              "value": "red"
+            }
+          }
+        },
+        {
+          "term": {
+            "items.size": {
+              "value": "s"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

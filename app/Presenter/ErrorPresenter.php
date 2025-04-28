@@ -25,7 +25,7 @@ final class ErrorPresenter implements Nette\Application\IPresenter
 	/**
 	 * @return Nette\Application\IResponse
 	 */
-	public function run(Nette\Application\Request $request)
+	public function run(\Nette\Application\Request $request): \Nette\Application\Response
 	{
 		$e = $request->getParameter('exception');
 

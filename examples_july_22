@@ -1,0 +1,1177 @@
+GET page_1/_search
+
+GET _cat
+
+GET _cat/indices
+
+GET plzen_eu_cz/_settings
+
+GET plzen_eu_cz/_search
+
+
+
+
+
+
+
+
+
+GET workshop_product/_settings
+
+GET workshop_product/_mapping
+
+
+
+
+POST workshop_page_9999/_doc
+{
+  "name": "Opatření covid-19"
+}
+
+POST workshop_page/_doc/tIsptXQB7WIJAVF7u9YM
+{
+  "name": "Opatření covid-19",
+  "content": "Zůstaňte doma!"
+}
+
+GET workshop_page/_mapping
+
+GET workshop_page/_search
+
+GET workshop_page/_doc/tIsptXQB7WIJAVF7u9YM
+
+DELETE workshop_page_120345123
+
+GET workshop_page/_search
+
+GET _alias
+
+POST /_aliases
+{
+    "actions" : [
+        {
+          "add" : {
+            "index" : "workshop_page_120345123",
+            "alias" : "workshop_page"
+          }
+        },
+        {
+          "remove": {
+            "index": "workshop_page_9999",
+            "alias" : "workshop_page"
+          }
+        }
+    ]
+}
+
+POST workshop_page/_doc
+{
+  "něco": "něco"
+}
+
+GET workshop_page/_analyze
+{
+  "text": ["PlayStation 5 je super, protože má AMD procesor."],
+  "analyzer": "czech"
+}
+
+
+GET workshop_page/_analyze
+{
+  "text": ["Všem osobám s přechodným a trvalým pobytem v České republice pobývajícím na území České republiky nad 90 dní nebo zaměstnaným na území České republiky, které se v období od 7. března 2020 navrátí z pobytu na území Italské republiky do České republiky, se nařizuje, aby bezprostředně po návratu do České republiky oznámily tuto skutečnost, a to telefonicky nebo jiným vzdáleným přístupem, svému registrujícímu poskytovateli zdravotních služeb v oboru všeobecné praktické lékařství nebo praktické lékařství pro děti a dorost, nebo nemají-li registrujícího poskytovatele, pak jakémukoli poskytovateli v oboru všeobecné praktické lékařství nebo praktické lékařství pro děti a dorost."],
+  "analyzer": "custom_analyzer"
+}
+
+
+DELETE workshop_page
+
+PUT workshop_page
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "custom_analyzer": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}
+
+GET workshop_page/_settings
+
+GET workshop_page/_search
+
+PUT workshop_page/_mapping
+{
+  "properties": {
+    "name": {
+      "type": "text",
+      "analyzer": "custom_analyzer"
+    }
+  }
+}
+
+GET workshop_page/_mapping
+
+POST workshop_page/_doc
+{
+  "name": "Předchozí Mimořádné opatření ze dne 6. března 2020, č.j. MZDR 5503/2020-10/PRO, se ruší.",
+  "isPublic": true
+}
+
+GET workshop_page/_doc/u4uxtXQB7WIJAVF7e9bs
+
+
+GET workshop_page/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "name": {
+              "value": "MZDR"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET workshop_page/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "name": {
+              "query": "MZDR pro se rusi",
+              "analyzer": "custom_analyzer",
+              "boost": 3,
+              "operator": "or",
+              "fuzziness": "auto",
+              "minimum_should_match": "80%"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+GET workshop_page/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_phrase": {
+            "name": "MZDR rusi"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET workshop_page/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "wildcard": {
+            "name": "mzd*"
+          }
+        },
+        {
+          "fuzzy": {
+            "content": {
+              "value": "MZDR"
+            }
+          }
+        },
+        {
+          "range": {
+            "price": {
+              "gte": 100,
+              "lte": 1000
+            }
+          }
+        }
+      ],
+      "must": [
+        {
+          "term": {
+            "isPublic": {
+              "value": true
+            }
+          }
+        },
+        {
+          "match": {
+            "identification.imdb": "tt0001234"
+          }
+        },
+        {
+          "bool": {
+           "should": [
+            {
+              "term":{
+                "isPublic": {
+                  "value": true
+                }
+              }
+            }
+          ]
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "term": {
+            "isPublic": {
+              "value": false
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+
+
+
+POST products_analyzers/_doc
+{
+  "name": "EXCIPIAL U HYDROLOTIO 20MG/ML kožní podání EML 200ML",
+  "isPublic": true,
+  "databaseId": 108739,
+  "content": "Excipial U Hydrolotio chrání a ošetřuje pokožku. Pomocí hydratace a tvorby přirozeného ochranného filmu z lipidů zlepšuje a normalizuje stav pokožky, vyhlazuje její drsný povrch a napomáhá jí udržovat si svou elasticitu a odolnost proti vnějším vlivům. Přípravek je možné použít při péči o pokožku při doléčování kožních onemocnění.",
+  "purpose": [
+      "Koronavir"
+    ],
+  "availability": "nevíme",
+  "variants": [
+    {
+      "price": 1200,
+      "barva": "žlutá"
+    },
+    {
+      "price": 1000,
+      "barva": "černá"
+    }
+  ]
+}
+
+GET products/_search
+
+
+PUT products_ngram
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customEdgeNgram": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        }
+      }
+    }
+  }
+}
+
+GET products_ngram/_analyze
+{
+  "text": ["Předchozí Mimořádné opatření ze dne 6. března 2020, č.j. MZDR 5503/2020-10/PRO, se ruší."],
+  "filter": [
+    "customEdgeNgram"
+  ],
+  "tokenizer": "standard"
+}
+
+PUT products_synonym
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customSynonym": {
+          "type": "synonym",
+          "synonyms": [
+            "MZDR => Ministerstvo",
+            "MZDR => Banda",
+            "Mimořádné => rychlé včasné okamžité"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+GET products_synonym/_analyze
+{
+  "text": ["Předchozí Mimořádné opatření ze dne 6. března 2020, č.j. MZDR 5503/2020-10/PRO, se ruší."],
+  "filter": [
+    "customSynonym"
+  ],
+  "tokenizer": "standard"
+}
+
+PUT products_dictionary
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "dictionary_CZ": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        }
+      }
+    }
+  }
+}
+
+
+GET products_dictionary/_analyze
+{
+  "text": ["Předchozí Mimořádné opatření ze dne 6. března 2020, č.j. MZDR 5503/2020-10/PRO, se ruší."],
+  "filter": [
+    "dictionary_CZ"
+  ],
+  "tokenizer": "standard"
+}
+
+
+PUT products_common_grams
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customCommonGrams": {
+          "type": "common_grams",
+          "common_words": [
+              "ks",
+              "l",
+              "litr",
+              "litry",
+              "litrů"
+          ]
+        },
+        "czechStopWords": {
+          "type": "stop",
+          "stopWords": [
+             "ks",
+            "l",
+            "litr",
+            "litry",
+            "litrů"
+          ]
+        }
+      }
+    }
+  }
+}
+
+
+
+GET products_common_grams/_analyze
+{
+  "text": ["Předchozí l Mimořádné opatření na maximum litrů ze dne 6. března 2020, č.j. MZDR 5503/2020-10/PRO ks, se ruší."],
+  "filter": [
+    "czechStopWords",
+    "customCommonGrams",
+    "czechStopWords"
+  ],
+  "tokenizer": "whitespace"
+}
+
+PUT products_word_delimiter
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customWordDelimiter": {
+          "type": "word_delimiter",
+          "catenate_all" : "true"
+        }
+      }
+    }
+  }
+}
+
+
+GET products_word_delimiter/_analyze
+{
+  "text": ["PlayStation PředchozíMimořádné opatření ze dne 6. března 2020, č.j. MZDR 5503/2020-10/PRO, se ruší."],
+  "filter": [
+    "customWordDelimiter"
+  ],
+  "tokenizer": "standard"
+}
+
+
+
+
+
+PUT products_analyzers
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "customEdegeNgram": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 6
+        },
+        "customSynonym": {
+          "type": "synonym",
+          "synonyms" : [
+            "PlayStation => PS",
+            "PlayStation => PSko",
+            "PlayStation => Xbox"
+            ]
+        },
+        "customStemmer": {
+          "type": "stemmer",
+          "name": "czech"
+        },
+        "customWordDelimiter": {
+          "type": "word_delimiter",
+          "catenate_all" : "true"
+        },
+        "dictionary_CZ": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        },
+        "czechStopWords": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_",
+            "ks",
+            "l",
+            "litr",
+            "litry",
+            "litrů"
+          ]
+        },
+        "customCommonGrams": {
+          "type": "common_grams",
+          "common_words": [
+            "ks",
+            "l",
+            "litr",
+            "litry",
+            "litrů"
+          ]
+        }
+      },
+      "analyzer": {
+        "czechDictionary": {
+          "filter": [
+            "lowercase",
+            "czechStopWords",
+            "dictionary_CZ",
+            "unique",
+            "asciifolding"
+          ],
+          "type": "custom",
+          "tokenizer": "standard"
+        },
+        "customEdgeNgram": {
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "stop",
+            "customEdegeNgram",
+            "unique"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        },
+        "customCommonGrams": {
+          "filter": [
+            "asciifolding",
+            "lowercase",
+            "stop",
+            "customCommonGrams",
+            "unique"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        },
+        "customWordDelimiter": {
+          "filter": [
+            "stop",
+            "customWordDelimiter",
+            "asciifolding",
+            "lowercase",
+            "unique"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        },
+        "czechSynonym": {
+          "filter": [
+            "lowercase",
+            "czechStopWords",
+            "customSynonym",
+            "unique",
+            "asciifolding"
+          ],
+          "type" : "custom",
+          "tokenizer" : "standard"
+        }
+      }
+    }
+  }
+}
+
+GET products_analyzers/_settings
+
+
+PUT products_analyzers/_mapping
+{
+  "properties": {
+    "name": {
+      "fields": {
+        "czechDictionary": {
+          "analyzer": "czechDictionary",
+          "type": "text"
+        },
+        "czechSynonym": {
+          "analyzer": "czechSynonym",
+          "type": "text"
+        },
+        "egdeNgram": {
+          "analyzer": "customEdgeNgram",
+          "type": "text"
+        },
+        "wordSplit": {
+          "analyzer": "customWordDelimiter",
+          "type": "text"
+        },
+        "wordJoin": {
+          "analyzer": "customCommonGrams",
+          "type": "text"
+        }
+      },
+      "type": "text",
+      "fielddata": true
+    }
+  }
+}
+
+
+PUT products_analyzers/_mapping
+{
+  "properties": {
+    "availability": {
+      "type": "keyword"
+    },
+    "price": {
+      "type": "long"
+    },
+    "isPublic": {
+      "type": "boolean"
+    },
+    "content": {
+      "type": "text",
+      "analyzer": "czechDictionary"
+    }
+  }
+}
+
+
+GET products_analyzers/_mapping
+
+
+GET products_analyzers/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "multi_match": {
+            "query": "EXCIPIAL",
+            "fields": [
+              "name.czechDictionary",
+              "name.czechSynonym",
+              "name.egdeNgram",
+              "name.wordJoin",
+              "name.wordSplit"
+            ],
+            "operator": "or",
+            "type": "best_fields",
+            "fuzziness": "auto",
+            "analyzer": "czechDictionary"
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET products_analyzers/_search
+{
+  "size": 100,
+  "from": 100,
+  "aggs": {
+    "coJeSkladem": {
+      "terms": {
+        "field": "availability"
+      }
+    }
+  }
+}
+
+
+GET workshop_product/_search
+
+
+
+DELETE spameri_*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+GET _cat/indices
+
+
+
+GET globalwines2018_1_1619729946/product/_search
+
+
+GET globalwines2018_1/page/_mapping
+
+
+GET globalwines2018_1/page/_search
+{
+  "from": 0,
+  "size": 10000,
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "bool": {
+            "should": [
+              {
+                "match": {
+                  "name": {
+                    "query": "víno",
+                    "boost": 10,
+                    "slop": 50,
+                    "type": "phrase",
+                    "fuzziness": "1",
+                    "minimum_should_match": "75%",
+                    "operator": "and"
+                  }
+                }
+              },
+              {
+                "multi_match": {
+                  "query": "víno",
+                  "boost": 10,
+                  "slop": 50,
+                  "fields": [
+                    "name.czechSynonym",
+                    "name.czechDictionary",
+                    "name.czechStemmer",
+                    "name.slovakDictionary"
+                  ],
+                  "type": "boolean",
+                  "fuzziness": "1",
+                  "minimum_should_match": "75%",
+                  "operator": "and"
+                }
+              },
+              {
+                "match": {
+                  "content": {
+                    "query": "víno",
+                    "boost": 1,
+                    "slop": 50,
+                    "type": "phrase",
+                    "minimum_should_match": "75%",
+                    "operator": "and"
+                  }
+                }
+              },
+              {
+                "multi_match": {
+                  "query": "víno",
+                  "boost": 1,
+                  "slop": 50,
+                  "fields": [
+                    "content.czechSynonym",
+                    "content.czechDictionary",
+                    "content.czechStemmer",
+                    "name.slovakDictionary"
+                  ],
+                  "type": "boolean",
+                  "minimum_should_match": "75%",
+                  "operator": "and"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "should": []
+    }
+  },
+  "filter": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "isPublic": {
+              "value": true,
+              "boost": 1
+            }
+          }
+        },
+        {
+          "terms": {
+            "action": [
+              "category",
+              "landingpage",
+              "detailbrand"
+            ],
+            "boost": 1
+          }
+        }
+      ],
+      "should": []
+    }
+  }
+}
+
+
+
+GET plzen_eu_cz/_mapping
+GET plzen_eu_cz/_settings
+
+DELETE plzen*
+
+PUT plzen_eu_cz
+{
+    "settings": {
+      "analysis": {
+        "analyzer": {
+          "czechDictionary": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "lowercase",
+              "czechStopWords",
+              "dictionary_CZ",
+              "unique",
+              "asciifolding"
+            ]
+          },
+          "customLowercase": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "asciifolding",
+              "lowercase",
+              "unique"
+            ]
+          },
+          "customEdgeNgram": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "asciifolding",
+              "lowercase",
+              "stop",
+              "edge_ngram",
+              "unique"
+            ]
+          },
+          "customWordDelimiter": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "stop",
+              "word_delimiter",
+              "asciifolding",
+              "lowercase",
+              "unique"
+            ]
+          },
+          "czechSynonym": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "filter": [
+              "lowercase",
+              "czechStopWords",
+              "customSynonyms",
+              "unique",
+              "asciifolding"
+            ]
+          }
+        },
+        "tokenizer": [],
+        "filter": {
+          "czechStopWords": {
+            "type": "stop",
+            "stopwords": [
+              "_czech_"
+            ]
+          },
+          "dictionary_CZ": {
+            "type": "hunspell",
+            "locale": "cs_CZ"
+          },
+          "customEdgeNgram": {
+            "type": "edge_ngram",
+            "min_gram": 2,
+            "max_gram": 6
+          },
+          "customWordDelimiter": {
+            "type": "word_delimiter",
+            "catenate_all": true
+          },
+          "customSynonyms": {
+            "type": "synonym",
+            "synonyms": [
+              "Aktuality => Novinky",
+              "korona => covid"
+            ]
+          }
+        }
+      }
+    },
+    "mappings": {
+        "properties": {
+          "title": {
+            "fields": {
+              "czechDictionary": {
+                "type": "text",
+                "analyzer": "czechDictionary"
+              },
+              "edgeNgram": {
+                "type": "text",
+                "analyzer": "customEdgeNgram"
+              },
+              "wordSplit": {
+                "type": "text",
+                "analyzer": "customWordDelimiter"
+              },
+              "czechSynonym": {
+                "type": "text",
+                "analyzer": "czechSynonym"
+              }
+            },
+            "type": "text"
+          },
+          "content": {
+            "fields": {
+              "czechDictionary": {
+                "type": "text",
+                "analyzer": "czechDictionary"
+              },
+              "wordSplit": {
+                "type": "text",
+                "analyzer": "customWordDelimiter"
+              },
+              "czechSynonym": {
+                "type": "text",
+                "analyzer": "czechSynonym"
+              }
+            },
+            "type": "text"
+          },
+          "tags": {
+            "type": "keyword"
+          },
+          "link": {
+            "type": "keyword"
+          },
+          "published": {
+            "type": "date"
+          },
+          "image": {
+            "type": "keyword"
+          },
+          "web": {
+            "type": "keyword"
+          }
+        }
+  }
+}
+
+
+
+GET _cat/indices
+
+GET _cat/indices
+
+GET spameri_product_migrate_new/_search
+
+GET spameri_product_migrate_new/_doc/192489
+
+
+
+
+
+# /////////////////////////////////////////
+
+
+
+POST workshop/_doc
+{
+  "name": "svetr je červený s dírou",
+  "id": 1234
+}
+
+GET workshop/_search
+{
+  "query": {
+    "match": {
+      "name": "svetr"
+    }
+  }
+}
+
+GET workshop/_doc/I5DL-4EBW8-nR0ucjPSX
+
+
+GET /
+
+GET _cat
+
+GET _cat/indices
+
+GET _settings
+
+GET workshop/_settings
+
+GET workshop/_mapping
+
+
+DELETE workshop/_doc/I5DL-4EBW8-nR0ucjPSX
+
+DELETE workshop
+
+
+GET _analyze
+{
+  "text": ["Foxes, Elegantní pánská šála s roztřepeným zakončením, rozměr 160x40 cm."],
+  "tokenizer": "standard",
+  "filter": [
+    "lowercase",
+    "stop",
+    "asciifolding"
+  ]
+}
+
+DELETE workshop_custom_analyzer
+
+PUT workshop_custom_analyzer
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "custom_analyser": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        },
+        "czechDictionary": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "czechStop",
+            "hunspel_CZ",
+            "lowercase",
+            "czechStop",
+            "unique",
+            "asciifolding"
+          ]
+        }
+      },
+      "filter": {
+        "czechStop": {
+          "type": "stop",
+          "stopwords": [
+            "_czech_",
+            "vítek",
+            "tbl"
+          ]
+        },
+        "hunspel_CZ": {
+          "type": "hunspell",
+          "locale": "cs_CZ"
+        }
+      }
+    }
+  }
+}
+
+
+GET workshop_custom_analyzer/_settings
+
+POST workshop_custom_analyzer/_mapping
+{
+   "properties": {
+    "name": {
+      "type": "text",
+      "analyzer": "czechDictionary"
+    },
+    "id": {
+      "type": "keyword"
+    }
+  }
+}
+
+
+
+GET workshop_custom_analyzer/_mapping
+
+
+POST workshop_custom_analyzer/_doc
+{
+  "name": "Trenky a boty",
+  "id": 12
+}
+
+GET workshop_custom_analyzer/_search
+{
+  "query": {
+    "match": {
+      "name": {
+        "query": "košil",
+        "analyzer": "czechDictionary"
+      }
+    }
+  }
+}
+
+
+GET workshop_custom_analyzer/_analyze
+{
+    "text": [
+      "Košile a tbl trička pro vítek",
+      "kosil"
+    ],
+    "tokenizer": "standard",
+   "filter": [
+      "czechStop"
+    ]
+}
+
+GET workshop_custom_analyzer/_search
+{
+  "query": {
+    "term": {
+      "FIELD": {
+        "value": "VALUE"
+      }
+    }
+  }
+}
+
+
+GET workshop_custom_analyzer/_search
+{
+  "query": {
+    "match": {
+      "FIELD": "TEXT"
+    }
+  }
+}
+
+
+GET workshop_custom_analyzer/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "isSale": {
+              "value": true
+            }
+          }
+        },
+        {
+          "exists": {
+            "field": "id"
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "size": 20
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

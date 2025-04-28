@@ -43,7 +43,7 @@ class ProductListPresenter extends \App\Presenter\BasePresenter
 							new \Spameri\ElasticQuery\Query\QueryCollection(
 								NULL,
 								new \Spameri\ElasticQuery\Query\ShouldCollection(
-									new \Spameri\ElasticQuery\Query\Match(
+									new \Spameri\ElasticQuery\Query\ElasticMatch(
 										'name',
 										'drzak na mobl',
 										10.0,
@@ -52,7 +52,7 @@ class ProductListPresenter extends \App\Presenter\BasePresenter
 										NULL,
 										NULL
 									),
-									new \Spameri\ElasticQuery\Query\Match(
+									new \Spameri\ElasticQuery\Query\ElasticMatch(
 										'content',
 										'drzak na mobl'
 									)
@@ -69,7 +69,7 @@ class ProductListPresenter extends \App\Presenter\BasePresenter
 				new \Spameri\ElasticQuery\ElasticQuery(
 					new \Spameri\ElasticQuery\Query\QueryCollection(
 						new \Spameri\ElasticQuery\Query\MustCollection(
-							new \Spameri\ElasticQuery\Query\Match(
+							new \Spameri\ElasticQuery\Query\ElasticMatch(
 								'name',
 								'drzak',
 								2,

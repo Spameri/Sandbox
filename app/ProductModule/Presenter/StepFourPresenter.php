@@ -27,7 +27,7 @@ class StepFourPresenter extends \App\Presenter\BasePresenter
 		try {
 			$products = $this->productService->getAllBy($query);
 
-		} catch (\Spameri\Elastic\Exception\ElasticSearchException $exception) {
+		} catch (\Spameri\Elastic\Exception\AbstractElasticSearchException $exception) {
 			$products = [];
 		}
 
@@ -53,7 +53,6 @@ class StepFourPresenter extends \App\Presenter\BasePresenter
 
 		$form->onSuccess[] = function () use ($form) {
 			$this->redirect(
-				301,
 				':Product:StepFour:default',
 				[
 					'queryString' => $form->getValues()->queryString,
@@ -70,7 +69,7 @@ class StepFourPresenter extends \App\Presenter\BasePresenter
 		$query = new \Spameri\ElasticQuery\ElasticQuery();
 		$subQuery = new \Spameri\ElasticQuery\Query\QueryCollection();
 		$subQuery->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\Match(
+			new \Spameri\ElasticQuery\Query\ElasticMatch(
 				'name',
 				$queryString,
 				1,

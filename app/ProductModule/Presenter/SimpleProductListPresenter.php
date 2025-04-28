@@ -31,7 +31,7 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 			// Doplnit kategorii - jen poslední zanoření
 			// Bude tam - značka
 
-		} catch (\Spameri\Elastic\Exception\ElasticSearchException $exception) {
+		} catch (\Spameri\Elastic\Exception\AbstractElasticSearchException $exception) {
 			$products = [];
 		}
 
@@ -57,7 +57,6 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 
 		$form->onSuccess[] = function () use ($form) {
 			$this->redirect(
-				301,
 				':Product:SimpleProductList:default',
 				[
 					'queryString' => $form->getValues()->queryString,
@@ -83,24 +82,26 @@ class SimpleProductListPresenter extends \App\Presenter\BasePresenter
 				],
 				$queryString,
 				3,
+				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO),
 				\Spameri\ElasticQuery\Query\Match\MultiMatchType::BEST_FIELDS,
+				NULL,
 				\Spameri\ElasticQuery\Query\Match\Operator::OR,
-				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
 			)
 		);
 		$subQuery->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\Match(
+			new \Spameri\ElasticQuery\Query\ElasticMatch(
 				'content',
 				$queryString,
 				1,
+				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO),
+				NULL,
 				\Spameri\ElasticQuery\Query\Match\Operator::OR,
-				new \Spameri\ElasticQuery\Query\Match\Fuzziness(\Spameri\ElasticQuery\Query\Match\Fuzziness::AUTO)
 			)
 		);
 
 		$query->addMustQuery($subQuery);
 		$query->addShouldQuery(
-			new \Spameri\ElasticQuery\Query\Match(
+			new \Spameri\ElasticQuery\Query\ElasticMatch(
 				'availability',
 				'Skladem',
 				10
